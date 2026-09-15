@@ -6,7 +6,7 @@
 	import { resolve } from '$app/paths';
 	import { Button, Progressbar, Card } from 'flowbite-svelte';
 
-	const TOTAL_QUESTIONS = 10;
+	const TOTAL_QUESTIONS = 20;
 
 	let currentIndex = $state(0);
 	let score = $state(0);
@@ -132,7 +132,7 @@
 		{/if}
 	{:else}
 		<div class="flex flex-col items-center gap-6 py-8">
-			<p class="text-6xl">{score >= 8 ? '&#127881;' : score >= 5 ? '&#128170;' : '&#128173;'}</p>
+			<p class="text-6xl">{score >= 8 ? '🎉' : score >= 5 ? '💪' : '💫'}</p>
 			<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Kuis Selesai!</h2>
 
 			<div class="grid w-full grid-cols-3 gap-4">
