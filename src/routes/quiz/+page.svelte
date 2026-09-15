@@ -1,7 +1,8 @@
 <script lang="ts">
 	import data from '$lib/data.json';
 	import type { Word, QuizResult } from '$lib/types';
-	import { scoreStore } from '$lib/stores.svelte';
+	import { scoreStore, wordStatsStore } from '$lib/stores.svelte';
+	import { selectQuizWords } from '$lib/scheduler';
 	import { resolve } from '$app/paths';
 	import { Button, Progressbar, Card } from 'flowbite-svelte';
 
@@ -32,7 +33,7 @@
 	}
 
 	function startQuiz() {
-		quizWords = shuffle(data as Word[]).slice(0, TOTAL_QUESTIONS);
+		quizWords = selectQuizWords(data as Word[], (id) => wordStatsStore.get(id), TOTAL_QUESTIONS);
 		currentIndex = 0;
 		score = 0;
 		finished = false;
@@ -51,9 +52,11 @@
 		if (answered) return;
 		answered = true;
 		selectedAnswer = answer;
-		if (answer === correctAnswer) {
+		const isCorrect = answer === correctAnswer;
+		if (isCorrect) {
 			score++;
 		}
+		wordStatsStore.record(quizWords[currentIndex].id, isCorrect);
 	}
 
 	function nextQuestion() {
@@ -105,6 +108,7 @@
 			<p class="text-4xl font-bold text-gray-900 dark:text-white">
 				{quizWords[currentIndex].hangeul}
 			</p>
+			<p class="mt-1 text-sm text-gray-500 italic">{quizWords[currentIndex].phonetic}</p>
 		</Card>
 
 		<div class="flex w-full flex-col gap-3">

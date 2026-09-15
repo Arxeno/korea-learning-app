@@ -24,8 +24,8 @@
 		<p class="text-lg text-gray-500">Belajar bahasa Korea dengan cara yang menyenangkan!</p>
 	</div>
 
-	<div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-3">
-		<a href={resolve('/vocabulary')}>
+	<div class="grid w-full grid-cols-1 justify-items-stretch gap-6 sm:grid-cols-3">
+		<a href={resolve('/vocabulary')} class="flex justify-center">
 			<Card
 				class="flex flex-col items-center p-8 text-center transition-all hover:scale-105 hover:shadow-xl"
 			>
@@ -35,7 +35,7 @@
 			</Card>
 		</a>
 
-		<a href={resolve('/quiz')}>
+		<a href={resolve('/quiz')} class="flex justify-center">
 			<Card
 				class="flex flex-col items-center p-8 text-center transition-all hover:scale-105 hover:shadow-xl"
 			>
@@ -45,7 +45,7 @@
 			</Card>
 		</a>
 
-		<a href={resolve('/scores')}>
+		<a href={resolve('/scores')} class="flex justify-center">
 			<Card
 				class="flex flex-col items-center p-8 text-center transition-all hover:scale-105 hover:shadow-xl"
 			>

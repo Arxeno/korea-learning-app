@@ -13,6 +13,7 @@
 		return (data as Word[]).filter(
 			(w) =>
 				w.hangeul.toLowerCase().includes(q) ||
+				w.phonetic.toLowerCase().includes(q) ||
 				w.idMean.toLowerCase().includes(q) ||
 				w.category.toLowerCase().includes(q)
 		);
@@ -42,7 +43,7 @@
 	<title>Kosa Kata - Hangul Learning</title>
 </svelte:head>
 
-<div class="flex flex-col gap-6">
+<div class="flex w-full flex-col gap-6">
 	<div>
 		<h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Kosa Kata</h1>
 		<p class="text-gray-500">Ketuk kartu untuk melihat arti dalam bahasa Indonesia</p>
@@ -58,7 +59,7 @@
 
 	<div class="flex flex-wrap gap-2">
 		<button
-			class="rounded-full px-3 py-1 text-sm font-medium transition-colors {activeCategory === ''
+			class="rounded-full px-3 py-1 text-base font-medium transition-colors {activeCategory === ''
 				? 'bg-purple-500 text-white'
 				: 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}"
 			onclick={() => (activeCategory = '')}
@@ -67,7 +68,8 @@
 		</button>
 		{#each categories as cat (cat)}
 			<button
-				class="rounded-full px-3 py-1 text-sm font-medium transition-colors {activeCategory === cat
+				class="rounded-full px-3 py-1 text-base font-medium transition-colors {activeCategory ===
+				cat
 					? 'bg-purple-500 text-white'
 					: 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'}"
 				onclick={() => (activeCategory = cat)}
@@ -83,7 +85,7 @@
 			<p class="mt-2">Tidak ada kata yang cocok dengan pencarianmu</p>
 		</div>
 	{:else}
-		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-4">
 			{#each displayed as word (word.id)}
 				<button class="perspective-1000 h-48 cursor-pointer" onclick={() => toggleFlip(word.id)}>
 					<div
@@ -93,13 +95,14 @@
 						<div
 							class="card-front absolute flex h-full w-full flex-col items-center justify-center rounded-xl border border-pink-200 bg-gradient-to-br from-pink-400 to-rose-500 p-4 text-white shadow-lg"
 						>
-							<span class="text-2xl font-bold">{word.hangeul}</span>
+							<span class="text-4xl font-bold">{word.hangeul}</span>
+							<span class="mt-1 text-lg text-white/80 italic">{word.phonetic}</span>
 						</div>
 						<div
 							class="card-back absolute flex h-full w-full flex-col items-center justify-center rounded-xl border border-indigo-200 bg-gradient-to-br from-indigo-400 to-purple-500 p-4 text-white shadow-lg"
 						>
-							<span class="text-lg font-bold">{word.idMean}</span>
-							<Badge color="gray" class="mt-2">{word.category}</Badge>
+							<span class="text-4xl font-bold">{word.idMean}</span>
+							<Badge color="gray" class="mt-2 text-base">{word.category}</Badge>
 						</div>
 					</div>
 				</button>

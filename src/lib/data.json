@@ -1,28 +1,136 @@
 [
-	{ "id": 1, "hangeul": "크다", "idMean": "Besar / tinggi", "category": "kata sifat" },
-	{ "id": 2, "hangeul": "작다", "idMean": "kecil", "category": "kata sifat" },
-	{ "id": 3, "hangeul": "많다", "idMean": "banyak", "category": "kata sifat" },
-	{ "id": 4, "hangeul": "적다", "idMean": "sedikit", "category": "kata sifat" },
-	{ "id": 5, "hangeul": "좋다", "idMean": "bagus", "category": "kata sifat" },
-	{ "id": 6, "hangeul": "나쁘다", "idMean": "jelek", "category": "kata sifat" },
-	{ "id": 7, "hangeul": "재미있다", "idMean": "seru", "category": "kata sifat" },
-	{ "id": 8, "hangeul": "무겁다", "idMean": "berat", "category": "kata sifat" },
-	{ "id": 9, "hangeul": "가볍다", "idMean": "ringan", "category": "kata sifat" },
-	{ "id": 10, "hangeul": "잘 생기다", "idMean": "ganteng", "category": "kata sifat" },
-	{ "id": 11, "hangeul": "가다", "idMean": "pergi", "category": "kata kerja" },
-	{ "id": 12, "hangeul": "자다", "idMean": "tidur", "category": "kata kerja" },
-	{ "id": 13, "hangeul": "이야기하다", "idMean": "mengobrol", "category": "kata kerja" },
-	{ "id": 14, "hangeul": "말하다", "idMean": "berbicara", "category": "kata kerja" },
-	{ "id": 15, "hangeul": "공부하다", "idMean": "belajar", "category": "kata kerja" },
-	{ "id": 16, "hangeul": "듣다", "idMean": "mendengar", "category": "kata kerja" },
-	{ "id": 17, "hangeul": "일하다", "idMean": "bekerja", "category": "kata kerja" },
-	{ "id": 18, "hangeul": "마시다", "idMean": "minum", "category": "kata kerja" },
-	{ "id": 19, "hangeul": "수다", "idMean": "istirahat", "category": "kata benda" },
-	{ "id": 20, "hangeul": "영화", "idMean": "film", "category": "kata benda" },
-	{ "id": 21, "hangeul": "신문", "idMean": "koran", "category": "kata benda" },
-	{ "id": 22, "hangeul": "음악", "idMean": "musik", "category": "kata benda" },
-	{ "id": 23, "hangeul": "차", "idMean": "teh", "category": "kata benda" },
-	{ "id": 24, "hangeul": "만화책", "idMean": "buku komik", "category": "kata benda" },
-	{ "id": 25, "hangeul": "소설책", "idMean": "buku novel", "category": "kata benda" },
-	{ "id": 26, "hangeul": "친구", "idMean": "teman", "category": "kata benda" }
+	{
+		"id": 1,
+		"hangeul": "크다",
+		"phonetic": "keuda",
+		"idMean": "Besar / tinggi",
+		"category": "kata sifat"
+	},
+	{ "id": 2, "hangeul": "작다", "phonetic": "jakda", "idMean": "kecil", "category": "kata sifat" },
+	{ "id": 3, "hangeul": "많다", "phonetic": "manta", "idMean": "banyak", "category": "kata sifat" },
+	{
+		"id": 4,
+		"hangeul": "적다",
+		"phonetic": "jeokda",
+		"idMean": "sedikit",
+		"category": "kata sifat"
+	},
+	{ "id": 5, "hangeul": "좋다", "phonetic": "jota", "idMean": "bagus", "category": "kata sifat" },
+	{
+		"id": 6,
+		"hangeul": "나쁘다",
+		"phonetic": "nappeuda",
+		"idMean": "jelek",
+		"category": "kata sifat"
+	},
+	{
+		"id": 7,
+		"hangeul": "재미있다",
+		"phonetic": "jaemiitda",
+		"idMean": "seru",
+		"category": "kata sifat"
+	},
+	{
+		"id": 8,
+		"hangeul": "무겁다",
+		"phonetic": "mugeopda",
+		"idMean": "berat",
+		"category": "kata sifat"
+	},
+	{
+		"id": 9,
+		"hangeul": "가볍다",
+		"phonetic": "gabyeopda",
+		"idMean": "ringan",
+		"category": "kata sifat"
+	},
+	{
+		"id": 10,
+		"hangeul": "잘 생기다",
+		"phonetic": "jal saenggida",
+		"idMean": "ganteng",
+		"category": "kata sifat"
+	},
+	{ "id": 11, "hangeul": "가다", "phonetic": "gada", "idMean": "pergi", "category": "kata kerja" },
+	{ "id": 12, "hangeul": "자다", "phonetic": "jada", "idMean": "tidur", "category": "kata kerja" },
+	{
+		"id": 13,
+		"hangeul": "이야기하다",
+		"phonetic": "iyagihada",
+		"idMean": "mengobrol",
+		"category": "kata kerja"
+	},
+	{
+		"id": 14,
+		"hangeul": "말하다",
+		"phonetic": "malhada",
+		"idMean": "berbicara",
+		"category": "kata kerja"
+	},
+	{
+		"id": 15,
+		"hangeul": "공부하다",
+		"phonetic": "gongbuhada",
+		"idMean": "belajar",
+		"category": "kata kerja"
+	},
+	{
+		"id": 16,
+		"hangeul": "듣다",
+		"phonetic": "deutda",
+		"idMean": "mendengar",
+		"category": "kata kerja"
+	},
+	{
+		"id": 17,
+		"hangeul": "일하다",
+		"phonetic": "ilhada",
+		"idMean": "bekerja",
+		"category": "kata kerja"
+	},
+	{
+		"id": 18,
+		"hangeul": "마시다",
+		"phonetic": "masida",
+		"idMean": "minum",
+		"category": "kata kerja"
+	},
+	{
+		"id": 19,
+		"hangeul": "쉬다",
+		"phonetic": "swida",
+		"idMean": "istirahat",
+		"category": "kata benda"
+	},
+	{
+		"id": 20,
+		"hangeul": "영화",
+		"phonetic": "yeonghwa",
+		"idMean": "film",
+		"category": "kata benda"
+	},
+	{
+		"id": 21,
+		"hangeul": "신문",
+		"phonetic": "sinmun",
+		"idMean": "koran",
+		"category": "kata benda"
+	},
+	{ "id": 22, "hangeul": "음악", "phonetic": "eumak", "idMean": "musik", "category": "kata benda" },
+	{ "id": 23, "hangeul": "차", "phonetic": "cha", "idMean": "teh", "category": "kata benda" },
+	{
+		"id": 24,
+		"hangeul": "만화책",
+		"phonetic": "manhwachaek",
+		"idMean": "buku komik",
+		"category": "kata benda"
+	},
+	{
+		"id": 25,
+		"hangeul": "소설책",
+		"phonetic": "soseolchaek",
+		"idMean": "buku novel",
+		"category": "kata benda"
+	},
+	{ "id": 26, "hangeul": "친구", "phonetic": "chingu", "idMean": "teman", "category": "kata benda" }
 ]
