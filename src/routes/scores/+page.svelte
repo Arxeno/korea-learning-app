@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { scoreStore } from '$lib/stores.svelte';
+	import { toTrendPoints } from '$lib/scoreChart';
+	import AccuracyTrend from '$lib/components/AccuracyTrend.svelte';
+	import ScoreBars from '$lib/components/ScoreBars.svelte';
 	import { resolve } from '$app/paths';
 	import {
 		Table,
@@ -12,6 +15,8 @@
 		Card,
 		Badge
 	} from 'flowbite-svelte';
+
+	const points = $derived.by(() => toTrendPoints(scoreStore.results));
 </script>
 
 <svelte:head>
@@ -50,6 +55,22 @@
 			<Button color="purple" href={resolve('/quiz')} class="mt-4">Mulai Kuis</Button>
 		</div>
 	{:else}
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:flex-row">
+			{#if points.length >= 2}
+				<Card class="w-full flex-grow p-5">
+					<h2 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">Tren Akurasi</h2>
+					<p class="mb-3 text-sm text-gray-500">Akurasi % per kuis, terlama ke terbaru</p>
+					<AccuracyTrend {points} />
+				</Card>
+			{/if}
+			<Card class="p-5">
+				<h2 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">
+					Benar vs Salah per Kuis
+				</h2>
+				<p class="mb-3 text-sm text-gray-500">Perbandingan jawaban tiap kuis</p>
+				<ScoreBars {points} />
+			</Card>
+		</div>
 		<div class="w-full overflow-x-auto">
 			<Table hoverable>
 				<TableHead>
@@ -85,8 +106,8 @@
 			</Table>
 		</div>
 
-		<Button color="red" outline size="sm" onclick={() => scoreStore.clear()} class="self-start">
+		<!-- <Button color="red" outline size="sm" onclick={() => scoreStore.clear()} class="self-start">
 			Hapus Semua Skor
-		</Button>
+		</Button> -->
 	{/if}
 </div>
