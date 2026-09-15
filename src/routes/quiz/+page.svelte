@@ -3,7 +3,7 @@
 	import type { Word, QuizResult } from '$lib/types';
 	import { scoreStore } from '$lib/stores.svelte';
 	import { resolve } from '$app/paths';
-	import QuizOption from '$lib/components/QuizOption.svelte';
+	import { Button, Progressbar, Card } from 'flowbite-svelte';
 
 	const TOTAL_QUESTIONS = 10;
 
@@ -72,6 +72,13 @@
 		}
 	}
 
+	function getOptionColor(option: string): 'green' | 'red' | 'light' {
+		if (!answered) return 'light';
+		if (option === correctAnswer) return 'green';
+		if (option === selectedAnswer && option !== correctAnswer) return 'red';
+		return 'light';
+	}
+
 	startQuiz();
 </script>
 
@@ -86,76 +93,64 @@
 				<span>Pertanyaan {currentIndex + 1} / {quizWords.length}</span>
 				<span>Skor: {score}</span>
 			</div>
-			<div class="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-				<div
-					class="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
-					style="width: {((currentIndex + 1) / quizWords.length) * 100}%"
-				></div>
-			</div>
+			<Progressbar
+				progress={((currentIndex + 1) / quizWords.length) * 100}
+				color="purple"
+				size="h-2.5"
+			/>
 		</div>
 
-		<div
-			class="w-full rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 p-8 text-center text-white shadow-xl"
-		>
-			<p class="mb-2 text-sm tracking-wider uppercase opacity-80">Apa artinya?</p>
-			<p class="text-4xl font-bold">{quizWords[currentIndex].hangeul}</p>
-		</div>
+		<Card class="w-full text-center">
+			<p class="mb-2 text-sm tracking-wider text-gray-500 uppercase">Apa artinya?</p>
+			<p class="text-4xl font-bold text-gray-900 dark:text-white">
+				{quizWords[currentIndex].hangeul}
+			</p>
+		</Card>
 
 		<div class="flex w-full flex-col gap-3">
 			{#each options as option (option)}
-				<QuizOption
-					label={option}
-					correct={option === correctAnswer}
-					selected={option === selectedAnswer}
+				<Button
+					color={getOptionColor(option)}
+					size="lg"
 					disabled={answered}
 					onclick={() => selectAnswer(option)}
-				/>
+					class="w-full text-left"
+				>
+					{option}
+				</Button>
 			{/each}
 		</div>
 
 		{#if answered}
-			<button
-				onclick={nextQuestion}
-				class="w-full rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl"
-			>
+			<Button color="purple" size="lg" onclick={nextQuestion} class="w-full">
 				{currentIndex + 1 >= quizWords.length ? 'Lihat Hasil' : 'Pertanyaan Berikutnya'}
-			</button>
+			</Button>
 		{/if}
 	{:else}
 		<div class="flex flex-col items-center gap-6 py-8">
 			<p class="text-6xl">{score >= 8 ? '&#127881;' : score >= 5 ? '&#128170;' : '&#128173;'}</p>
-			<h2 class="text-3xl font-bold text-gray-800">Kuis Selesai!</h2>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Kuis Selesai!</h2>
 
 			<div class="grid w-full grid-cols-3 gap-4">
-				<div class="rounded-xl bg-green-100 p-4 text-center">
+				<Card class="p-4 text-center">
 					<p class="text-2xl font-bold text-green-600">{score}</p>
 					<p class="text-sm text-green-500">Benar</p>
-				</div>
-				<div class="rounded-xl bg-red-100 p-4 text-center">
+				</Card>
+				<Card class="p-4 text-center">
 					<p class="text-2xl font-bold text-red-600">{quizWords.length - score}</p>
 					<p class="text-sm text-red-500">Salah</p>
-				</div>
-				<div class="rounded-xl bg-purple-100 p-4 text-center">
+				</Card>
+				<Card class="p-4 text-center">
 					<p class="text-2xl font-bold text-purple-600">
 						{Math.round((score / quizWords.length) * 100)}%
 					</p>
 					<p class="text-sm text-purple-500">Akurasi</p>
-				</div>
+				</Card>
 			</div>
 
 			<div class="flex w-full gap-3">
-				<button
-					onclick={startQuiz}
-					class="flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg transition-all hover:scale-[1.02]"
-				>
-					Main Lagi
-				</button>
-				<a
-					href={resolve('/scores')}
-					class="flex-1 rounded-xl border-2 border-purple-300 px-6 py-3 text-center font-bold text-purple-600 transition-all hover:bg-purple-50"
-				>
-					Lihat Skor
-				</a>
+				<Button color="purple" size="lg" onclick={startQuiz} class="flex-1">Main Lagi</Button>
+				<Button color="light" size="lg" href={resolve('/scores')} class="flex-1">Lihat Skor</Button>
 			</div>
 		</div>
 	{/if}
