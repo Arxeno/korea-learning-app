@@ -5,7 +5,7 @@
 	import MobileTabBar from '$lib/components/MobileTabBar.svelte';
 	import BrandSeal from '$lib/components/BrandSeal.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
 <svelte:head>
@@ -13,7 +13,7 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
-	<SiteHeader />
+	<SiteHeader user={data.user} />
 
 	<main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-12 [&>*]:animate-rise">
 		{@render children()}
