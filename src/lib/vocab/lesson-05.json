@@ -1,0 +1,983 @@
+[
+	{
+		"id": 5001,
+		"hangeul": "오전",
+		"phonetic": "ojeon",
+		"idMean": "a.m. (00:00–12:00)",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5002,
+		"hangeul": "오후",
+		"phonetic": "ohu",
+		"idMean": "p.m. (12:00–24:00)",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5003,
+		"hangeul": "낮",
+		"phonetic": "nat",
+		"idMean": "siang hari",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5004,
+		"hangeul": "밤",
+		"phonetic": "bam",
+		"idMean": "malam",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5005,
+		"hangeul": "아침",
+		"phonetic": "achim",
+		"idMean": "pagi / sarapan",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5006,
+		"hangeul": "점심",
+		"phonetic": "jeomsim",
+		"idMean": "siang / makan siang",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5007,
+		"hangeul": "저녁",
+		"phonetic": "jeonyeok",
+		"idMean": "sore–malam / makan malam",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5008,
+		"hangeul": "새벽",
+		"phonetic": "saebyeok",
+		"idMean": "dini hari",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5009,
+		"hangeul": "시간",
+		"phonetic": "sigan",
+		"idMean": "waktu",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5010,
+		"hangeul": "분",
+		"phonetic": "bun",
+		"idMean": "menit",
+		"category": "kata satuan",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5011,
+		"hangeul": "초",
+		"phonetic": "cho",
+		"idMean": "detik",
+		"category": "kata satuan",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5012,
+		"hangeul": "반",
+		"phonetic": "ban",
+		"idMean": "setengah",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5013,
+		"hangeul": "쯤",
+		"phonetic": "jjeum",
+		"idMean": "sekitar (±)",
+		"category": "kata keterangan",
+		"lesson": 5,
+		"topic": "Waktu"
+	},
+	{
+		"id": 5014,
+		"hangeul": "일어나다",
+		"phonetic": "ireonada",
+		"idMean": "bangun (tidur)",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5015,
+		"hangeul": "이를 닦다",
+		"phonetic": "ireul dakda",
+		"idMean": "menggosok gigi",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5016,
+		"hangeul": "세수하다",
+		"phonetic": "sesuhada",
+		"idMean": "cuci muka",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5017,
+		"hangeul": "읽다",
+		"phonetic": "ikda",
+		"idMean": "membaca",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5018,
+		"hangeul": "다니다",
+		"phonetic": "danida",
+		"idMean": "pergi (rutin) / bersekolah di",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5019,
+		"hangeul": "배우다",
+		"phonetic": "baeuda",
+		"idMean": "belajar (mempelajari)",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5020,
+		"hangeul": "숙제하다",
+		"phonetic": "sukjehada",
+		"idMean": "membuat PR",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5021,
+		"hangeul": "청소하다",
+		"phonetic": "cheongsohada",
+		"idMean": "bersih-bersih",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5022,
+		"hangeul": "목욕하다",
+		"phonetic": "mogyokada",
+		"idMean": "mandi",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5023,
+		"hangeul": "출근하다",
+		"phonetic": "chulgeunhada",
+		"idMean": "berangkat kerja / masuk kantor",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5024,
+		"hangeul": "퇴근하다",
+		"phonetic": "toegeunhada",
+		"idMean": "pulang kerja",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5025,
+		"hangeul": "시작하다",
+		"phonetic": "sijakada",
+		"idMean": "mulai",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5026,
+		"hangeul": "끝나다",
+		"phonetic": "kkeunnada",
+		"idMean": "selesai",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kegiatan Keseharian"
+	},
+	{
+		"id": 5027,
+		"hangeul": "하나",
+		"phonetic": "hana",
+		"idMean": "satu",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5028,
+		"hangeul": "둘",
+		"phonetic": "dul",
+		"idMean": "dua",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5029,
+		"hangeul": "셋",
+		"phonetic": "set",
+		"idMean": "tiga",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5030,
+		"hangeul": "넷",
+		"phonetic": "net",
+		"idMean": "empat",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5031,
+		"hangeul": "다섯",
+		"phonetic": "daseot",
+		"idMean": "lima",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5032,
+		"hangeul": "여섯",
+		"phonetic": "yeoseot",
+		"idMean": "enam",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5033,
+		"hangeul": "일곱",
+		"phonetic": "ilgop",
+		"idMean": "tujuh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5034,
+		"hangeul": "여덟",
+		"phonetic": "yeodeol",
+		"idMean": "delapan",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5035,
+		"hangeul": "아홉",
+		"phonetic": "ahop",
+		"idMean": "sembilan",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5036,
+		"hangeul": "열",
+		"phonetic": "yeol",
+		"idMean": "sepuluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5037,
+		"hangeul": "스물",
+		"phonetic": "seumul",
+		"idMean": "dua puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5038,
+		"hangeul": "서른",
+		"phonetic": "seoreun",
+		"idMean": "tiga puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5039,
+		"hangeul": "마흔",
+		"phonetic": "maheun",
+		"idMean": "empat puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5040,
+		"hangeul": "쉰",
+		"phonetic": "swin",
+		"idMean": "lima puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5041,
+		"hangeul": "예순",
+		"phonetic": "yesun",
+		"idMean": "enam puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5042,
+		"hangeul": "일흔",
+		"phonetic": "ilheun",
+		"idMean": "tujuh puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5043,
+		"hangeul": "여든",
+		"phonetic": "yeodeun",
+		"idMean": "delapan puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5044,
+		"hangeul": "아흔",
+		"phonetic": "aheun",
+		"idMean": "sembilan puluh",
+		"category": "kata bilangan",
+		"lesson": 5,
+		"topic": "Angka Asli Korea"
+	},
+	{
+		"id": 5045,
+		"hangeul": "명",
+		"phonetic": "myeong",
+		"idMean": "orang (kata satuan)",
+		"category": "kata satuan",
+		"lesson": 5,
+		"topic": "Kata Satuan"
+	},
+	{
+		"id": 5046,
+		"hangeul": "살",
+		"phonetic": "sal",
+		"idMean": "tahun (umur)",
+		"category": "kata satuan",
+		"lesson": 5,
+		"topic": "Kata Satuan"
+	},
+	{
+		"id": 5047,
+		"hangeul": "번",
+		"phonetic": "beon",
+		"idMean": "nomor (kata satuan)",
+		"category": "kata satuan",
+		"lesson": 5,
+		"topic": "Kata Satuan"
+	},
+	{
+		"id": 5048,
+		"hangeul": "겨울",
+		"phonetic": "gyeoul",
+		"idMean": "musim dingin",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5049,
+		"hangeul": "고향",
+		"phonetic": "gohyang",
+		"idMean": "kampung halaman",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5050,
+		"hangeul": "공항",
+		"phonetic": "gonghang",
+		"idMean": "bandara",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5051,
+		"hangeul": "날",
+		"phonetic": "nal",
+		"idMean": "hari",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5052,
+		"hangeul": "남자",
+		"phonetic": "namja",
+		"idMean": "pria",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5053,
+		"hangeul": "노래방",
+		"phonetic": "noraebang",
+		"idMean": "karaoke",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5054,
+		"hangeul": "받다",
+		"phonetic": "batda",
+		"idMean": "menerima",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5055,
+		"hangeul": "밥",
+		"phonetic": "bap",
+		"idMean": "nasi",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5056,
+		"hangeul": "부모님",
+		"phonetic": "bumonim",
+		"idMean": "orang tua",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5057,
+		"hangeul": "수업",
+		"phonetic": "sueop",
+		"idMean": "kuliah / kelas",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5058,
+		"hangeul": "수영하다",
+		"phonetic": "suyeonghada",
+		"idMean": "berenang",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5059,
+		"hangeul": "시험을 보다",
+		"phonetic": "siheomeul boda",
+		"idMean": "mengikuti ujian",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5060,
+		"hangeul": "여자",
+		"phonetic": "yeoja",
+		"idMean": "wanita",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5061,
+		"hangeul": "영문과",
+		"phonetic": "yeongmungwa",
+		"idMean": "program studi Inggris",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5062,
+		"hangeul": "영어",
+		"phonetic": "yeongeo",
+		"idMean": "bahasa Inggris",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5063,
+		"hangeul": "운전하다",
+		"phonetic": "unjeonhada",
+		"idMean": "menyetir",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5064,
+		"hangeul": "인터넷",
+		"phonetic": "inteonet",
+		"idMean": "internet",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5065,
+		"hangeul": "일기",
+		"phonetic": "ilgi",
+		"idMean": "buku harian",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5066,
+		"hangeul": "집",
+		"phonetic": "jip",
+		"idMean": "rumah",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5067,
+		"hangeul": "출발하다",
+		"phonetic": "chulbalhada",
+		"idMean": "berangkat",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5068,
+		"hangeul": "후",
+		"phonetic": "hu",
+		"idMean": "setelah",
+		"category": "kata keterangan",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5069,
+		"hangeul": "회사",
+		"phonetic": "hoesa",
+		"idMean": "kantor",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5070,
+		"hangeul": "회의",
+		"phonetic": "hoeui",
+		"idMean": "rapat",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5071,
+		"hangeul": "PC방",
+		"phonetic": "pisibang",
+		"idMean": "warung internet",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata Baru"
+	},
+	{
+		"id": 5072,
+		"hangeul": "학교",
+		"phonetic": "hakgyo",
+		"idMean": "sekolah",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5073,
+		"hangeul": "대학교",
+		"phonetic": "daehakgyo",
+		"idMean": "universitas",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5074,
+		"hangeul": "대학생",
+		"phonetic": "daehaksaeng",
+		"idMean": "mahasiswa",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5075,
+		"hangeul": "학생",
+		"phonetic": "haksaeng",
+		"idMean": "pelajar / siswa",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5076,
+		"hangeul": "선생님",
+		"phonetic": "seonsaengnim",
+		"idMean": "guru",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5077,
+		"hangeul": "의사",
+		"phonetic": "uisa",
+		"idMean": "dokter",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5078,
+		"hangeul": "병원",
+		"phonetic": "byeongwon",
+		"idMean": "rumah sakit",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5079,
+		"hangeul": "은행",
+		"phonetic": "eunhaeng",
+		"idMean": "bank",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5080,
+		"hangeul": "은행원",
+		"phonetic": "eunhaengwon",
+		"idMean": "pegawai bank",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5081,
+		"hangeul": "공원",
+		"phonetic": "gongwon",
+		"idMean": "taman",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5082,
+		"hangeul": "시내",
+		"phonetic": "sinae",
+		"idMean": "pusat kota",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5083,
+		"hangeul": "컴퓨터실",
+		"phonetic": "keompyuteosil",
+		"idMean": "ruang komputer",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5084,
+		"hangeul": "카페",
+		"phonetic": "kape",
+		"idMean": "kafe",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5085,
+		"hangeul": "커피",
+		"phonetic": "keopi",
+		"idMean": "kopi",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5086,
+		"hangeul": "사과",
+		"phonetic": "sagwa",
+		"idMean": "apel",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5087,
+		"hangeul": "책",
+		"phonetic": "chaek",
+		"idMean": "buku",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5088,
+		"hangeul": "전화",
+		"phonetic": "jeonhwa",
+		"idMean": "telepon",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5089,
+		"hangeul": "노래",
+		"phonetic": "norae",
+		"idMean": "lagu",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5090,
+		"hangeul": "직업",
+		"phonetic": "jigeop",
+		"idMean": "pekerjaan",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5091,
+		"hangeul": "식사",
+		"phonetic": "siksa",
+		"idMean": "makan (hidangan)",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5092,
+		"hangeul": "회식",
+		"phonetic": "hoesik",
+		"idMean": "makan-makan bersama kantor",
+		"category": "kata benda",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5093,
+		"hangeul": "오다",
+		"phonetic": "oda",
+		"idMean": "datang",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5094,
+		"hangeul": "먹다",
+		"phonetic": "meokda",
+		"idMean": "makan",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5095,
+		"hangeul": "보다",
+		"phonetic": "boda",
+		"idMean": "melihat / menonton",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5096,
+		"hangeul": "쓰다",
+		"phonetic": "sseuda",
+		"idMean": "menulis",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5097,
+		"hangeul": "빌리다",
+		"phonetic": "billida",
+		"idMean": "meminjam",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5098,
+		"hangeul": "운동하다",
+		"phonetic": "undonghada",
+		"idMean": "berolahraga",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5099,
+		"hangeul": "쇼핑하다",
+		"phonetic": "syopinghada",
+		"idMean": "berbelanja",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5100,
+		"hangeul": "농구하다",
+		"phonetic": "nongguhada",
+		"idMean": "bermain basket",
+		"category": "kata kerja",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5101,
+		"hangeul": "어렵다",
+		"phonetic": "eoryeopda",
+		"idMean": "sulit",
+		"category": "kata sifat",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5102,
+		"hangeul": "짧다",
+		"phonetic": "jjalda",
+		"idMean": "pendek",
+		"category": "kata sifat",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5103,
+		"hangeul": "보통",
+		"phonetic": "botong",
+		"idMean": "biasanya",
+		"category": "kata keterangan",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5104,
+		"hangeul": "지금",
+		"phonetic": "jigeum",
+		"idMean": "sekarang",
+		"category": "kata keterangan",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5105,
+		"hangeul": "무엇",
+		"phonetic": "mueot",
+		"idMean": "apa",
+		"category": "kata tanya",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5106,
+		"hangeul": "뭘",
+		"phonetic": "mwol",
+		"idMean": "apa (singkatan 무엇을)",
+		"category": "kata tanya",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5107,
+		"hangeul": "어디",
+		"phonetic": "eodi",
+		"idMean": "mana (di / ke mana)",
+		"category": "kata tanya",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5108,
+		"hangeul": "누구",
+		"phonetic": "nugu",
+		"idMean": "siapa",
+		"category": "kata tanya",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	},
+	{
+		"id": 5109,
+		"hangeul": "그럼",
+		"phonetic": "geureom",
+		"idMean": "kalau begitu",
+		"category": "kata sambung",
+		"lesson": 5,
+		"topic": "Kosakata latihan"
+	}
+]

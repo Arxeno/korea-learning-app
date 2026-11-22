@@ -1,12 +1,16 @@
 <script lang="ts">
-	import data from '$lib/data.json';
+	import { words, lessonKey, lessonLabel, lessonsIn, type LessonKey } from '$lib/vocab';
 	import type { Word, QuizResult } from '$lib/types';
+	import FilterChips from '$lib/components/FilterChips.svelte';
 	import { scoreStore, wordStatsStore } from '$lib/stores.svelte';
 	import { selectQuizWords } from '$lib/scheduler';
 	import { resolve } from '$app/paths';
 	import { Button, Progressbar, Card } from 'flowbite-svelte';
 
 	const TOTAL_QUESTIONS = 20;
+
+	const lessonOptions = lessonsIn(words).map((key) => ({ value: key, label: lessonLabel(key) }));
+	let activeLesson = $state<LessonKey | null>(null);
 
 	let currentIndex = $state(0);
 	let score = $state(0);
@@ -26,14 +30,29 @@
 		return a;
 	}
 
-	function generateOptions(correct: string): string[] {
-		const wrongs = (data as Word[]).filter((w) => w.idMean !== correct).map((w) => w.idMean);
-		const shuffled = shuffle(wrongs).slice(0, 3);
-		return shuffle([correct, ...shuffled]);
+	// Wrong choices come from the closest group first (same lesson + category,
+	// then same lesson, then everything) so 월요일 is tested against other days.
+	// Words sharing the meaning or the spelling (일 = satu / tanggal) are never offered.
+	function generateOptions(word: Word): string[] {
+		const usable = words.filter((w) => w.idMean !== word.idMean && w.hangeul !== word.hangeul);
+		const tiers = [
+			usable.filter((w) => w.lesson === word.lesson && w.category === word.category),
+			usable.filter((w) => w.lesson === word.lesson),
+			usable
+		];
+		const picked: string[] = [];
+		for (const tier of tiers) {
+			for (const w of shuffle(tier)) {
+				if (picked.length >= 3) break;
+				if (!picked.includes(w.idMean)) picked.push(w.idMean);
+			}
+		}
+		return shuffle([word.idMean, ...picked]);
 	}
 
 	function startQuiz() {
-		quizWords = selectQuizWords(data as Word[], (id) => wordStatsStore.get(id), TOTAL_QUESTIONS);
+		const pool = activeLesson === null ? words : words.filter((w) => lessonKey(w) === activeLesson);
+		quizWords = selectQuizWords(pool, (id) => wordStatsStore.get(id), TOTAL_QUESTIONS);
 		currentIndex = 0;
 		score = 0;
 		finished = false;
@@ -45,7 +64,7 @@
 		selectedAnswer = '';
 		const word = quizWords[currentIndex];
 		correctAnswer = word.idMean;
-		options = generateOptions(word.idMean);
+		options = generateOptions(word);
 	}
 
 	function selectAnswer(answer: string) {
@@ -90,6 +109,16 @@
 </svelte:head>
 
 <div class="mx-auto flex max-w-lg flex-col items-center gap-6">
+	<div class="w-full">
+		<p class="mb-2 text-sm font-semibold text-gray-500">Pilih pelajaran</p>
+		<FilterChips
+			options={lessonOptions}
+			bind:value={activeLesson}
+			allLabel="Semua"
+			onchange={startQuiz}
+		/>
+	</div>
+
 	{#if !finished}
 		<div class="w-full">
 			<div class="mb-2 flex items-center justify-between text-sm text-gray-500">

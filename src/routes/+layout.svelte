@@ -13,8 +13,13 @@
 		{ href: resolve('/'), label: 'Beranda' },
 		{ href: resolve('/vocabulary'), label: 'Kosa Kata' },
 		{ href: resolve('/quiz'), label: 'Kuis' },
+		{ href: resolve('/practice'), label: 'Latihan' },
 		{ href: resolve('/scores'), label: 'Skor' }
 	];
+
+	// Sub-pages (e.g. /practice/numbers) keep their section highlighted.
+	const isActive = (href: string) =>
+		activeUrl === href || (href !== resolve('/') && activeUrl.startsWith(`${href}/`));
 </script>
 
 <svelte:head>
@@ -30,7 +35,12 @@
 		<NavHamburger />
 		<NavUl {activeUrl}>
 			{#each links as link (link.href)}
-				<NavLi href={link.href} class="md:hover:text-[#6D3189]/80 {activeUrl === link.href ? 'text-white md:text-[#6D3189]' : 'text-black md:text-white'} md:bg-[#d0c4df] md:hover:bg-[#DCABDF] md:rounded-full md:mx-2 md:w-[100px] md:text-center">
+				<NavLi
+					href={link.href}
+					class="md:hover:text-[#6D3189]/80 {isActive(link.href)
+						? 'text-white md:text-[#6D3189]'
+						: 'text-black md:text-white'} md:mx-2 md:w-[100px] md:rounded-full md:bg-[#d0c4df] md:text-center md:hover:bg-[#DCABDF]"
+				>
 					{link.label}</NavLi
 				>
 			{/each}
