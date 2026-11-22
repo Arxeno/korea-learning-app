@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { Alert, Card } from 'flowbite-svelte';
 
 	interface Props {
 		title: string;
+		/** Small serif Korean line above the title, e.g. "로그인". */
+		eyebrow?: string;
 		subtitle?: string;
 		/** Error shown above the form. */
 		error?: string | null;
@@ -13,21 +14,24 @@
 		footer?: Snippet;
 	}
 
-	let { title, subtitle, error, notice, children, footer }: Props = $props();
+	let { title, eyebrow, subtitle, error, notice, children, footer }: Props = $props();
 </script>
 
-<div class="flex justify-center py-4 sm:py-8">
-	<Card size="md" class="w-full p-6 sm:p-8">
-		<h1 class="text-2xl font-bold text-gray-900">{title}</h1>
+<div class="flex justify-center sm:py-4">
+	<section class="card w-full max-w-md p-6 sm:p-8">
+		{#if eyebrow}
+			<p lang="ko" class="font-serif text-base font-bold text-coral-600">{eyebrow}</p>
+		{/if}
+		<h1 class="font-serif text-3xl font-bold text-ink">{title}</h1>
 		{#if subtitle}
-			<p class="mt-1 text-sm text-gray-500">{subtitle}</p>
+			<p class="mt-2 text-sm text-ink-muted">{subtitle}</p>
 		{/if}
 
 		{#if error}
-			<Alert color="red" class="mt-4" role="alert">{error}</Alert>
+			<p class="alert-error mt-5" role="alert">{error}</p>
 		{/if}
 		{#if notice}
-			<Alert color="green" class="mt-4" role="status">{notice}</Alert>
+			<p class="alert-success mt-5" role="status">{notice}</p>
 		{/if}
 
 		<div class="mt-6">
@@ -35,9 +39,9 @@
 		</div>
 
 		{#if footer}
-			<div class="mt-6 border-t border-gray-100 pt-4 text-center text-sm text-gray-600">
+			<div class="mt-6 border-t border-paper-3 pt-5 text-center text-sm text-ink-muted">
 				{@render footer()}
 			</div>
 		{/if}
-	</Card>
+	</section>
 </div>

@@ -153,6 +153,27 @@
 		@apply text-xs font-semibold tracking-[0.18em] text-ink-muted uppercase;
 	}
 
+	/* Forms (auth pages) */
+	.label {
+		@apply mb-1.5 block text-sm font-semibold text-ink-soft;
+	}
+
+	.input {
+		@apply block w-full rounded-xl border border-paper-3 bg-surface px-4 py-3 text-ink shadow-soft transition placeholder:text-ink-muted/80 focus:border-paper-4;
+	}
+
+	.alert-error {
+		@apply rounded-xl border border-coral-100 bg-coral-50 px-4 py-3 text-sm text-coral-700;
+	}
+
+	.alert-success {
+		@apply rounded-xl border border-jade-100 bg-jade-50 px-4 py-3 text-sm text-jade-700;
+	}
+
+	.link {
+		@apply font-semibold text-coral-600 underline-offset-2 hover:underline;
+	}
+
 	.no-scrollbar {
 		scrollbar-width: none;
 	}
