@@ -3,7 +3,7 @@
 	import { scoreStore } from '$lib/stores.svelte';
 	import { resolve } from '$app/paths';
 	import { Card, Badge } from 'flowbite-svelte';
-	import { BookOutline, BrainSolid, AwardSolid } from 'flowbite-svelte-icons';
+	import { BookOutline, BrainSolid, AwardSolid, ClipboardCheckSolid } from 'flowbite-svelte-icons';
 
 	const lessons = lessonsIn(words).map((key) => ({
 		key,
@@ -28,7 +28,7 @@
 		<p class="text-lg text-gray-500">Belajar bahasa Korea dengan cara yang menyenangkan!</p>
 	</div>
 
-	<div class="grid w-full grid-cols-1 justify-items-stretch gap-6 sm:grid-cols-3">
+	<div class="grid w-full grid-cols-1 justify-items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
 		<a href={resolve('/vocabulary')} class="flex justify-center">
 			<Card
 				class="flex flex-col items-center p-8 text-center transition-all hover:scale-105 hover:shadow-xl"
@@ -46,6 +46,16 @@
 				<BrainSolid class="mb-3 h-10 w-10 text-purple-500" />
 				<h5 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Kuis</h5>
 				<span class="text-sm text-gray-500">Uji pengetahuanmu</span>
+			</Card>
+		</a>
+
+		<a href={resolve('/practice')} class="flex justify-center">
+			<Card
+				class="flex flex-col items-center p-8 text-center transition-all hover:scale-105 hover:shadow-xl"
+			>
+				<ClipboardCheckSolid class="mb-3 h-10 w-10 text-indigo-500" />
+				<h5 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Latihan</h5>
+				<span class="text-sm text-gray-500">Soal buku &amp; latihan angka</span>
 			</Card>
 		</a>
 
