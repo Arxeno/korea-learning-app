@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ExerciseItem } from '$lib/types';
-	import { Button } from 'flowbite-svelte';
+	import AnswerOption, { answerState, type AnswerState } from './AnswerOption.svelte';
+	import { EyeOutline, EyeSlashOutline, LightbulbOutline } from 'flowbite-svelte-icons';
 
 	let { item, number }: { item: ExerciseItem; number: number } = $props();
 
@@ -8,93 +9,106 @@
 	let chosen = $state<number | null>(null);
 	let tfAnswer = $state<boolean | null>(null);
 
-	function choiceColor(i: number, correct: number): 'green' | 'red' | 'light' {
-		if (chosen === null) return 'light';
-		if (i === correct) return 'green';
-		if (i === chosen) return 'red';
-		return 'light';
-	}
+	const tfStyles: Record<AnswerState, string> = {
+		idle: 'cursor-pointer border-paper-3 bg-surface text-ink hover:border-paper-4 hover:bg-paper-2',
+		correct: 'animate-pop border-jade-600 bg-jade-600 text-white',
+		wrong: 'animate-shake border-coral-500 bg-coral-500 text-white',
+		muted: 'border-paper-3 bg-surface text-ink-muted/50'
+	};
 
-	function tfColor(value: boolean, answer: boolean): 'green' | 'red' | 'light' {
-		if (tfAnswer === null) return 'light';
-		if (value === answer) return 'green';
-		if (value === tfAnswer) return 'red';
-		return 'light';
-	}
+	const feedbackClass = (ok: boolean) =>
+		ok ? 'bg-jade-50 text-jade-700' : 'bg-coral-50 text-coral-700';
 </script>
 
-<li class="flex flex-col gap-2 border-t border-gray-100 pt-4 first:border-t-0 first:pt-0">
-	{#if item.kind === 'reveal'}
-		<p class="whitespace-pre-line text-gray-900 dark:text-white">
-			<span class="mr-1 text-gray-400">{number}.</span>{item.prompt}
-		</p>
-		<div>
-			<Button size="xs" color="light" onclick={() => (revealed = !revealed)}>
-				{revealed ? 'Sembunyikan jawaban' : 'Lihat jawaban'}
-			</Button>
-		</div>
-		{#if revealed}
-			<div class="rounded-lg bg-green-50 p-3 text-green-900">
-				<p class="text-lg whitespace-pre-line">{item.answer}</p>
-				{#if item.hint}
-					<p class="mt-1 text-sm text-green-700">💡 {item.hint}</p>
-				{/if}
-			</div>
-		{/if}
-	{:else if item.kind === 'truefalse'}
-		<p class="text-gray-900 dark:text-white">
-			<span class="mr-1 text-gray-400">{number}.</span>{item.statement}
-		</p>
-		<div class="flex gap-2">
-			<Button
-				size="sm"
-				color={tfColor(true, item.answer)}
-				disabled={tfAnswer !== null}
-				onclick={() => (tfAnswer = true)}
-				class="w-16 text-lg">O</Button
-			>
-			<Button
-				size="sm"
-				color={tfColor(false, item.answer)}
-				disabled={tfAnswer !== null}
-				onclick={() => (tfAnswer = false)}
-				class="w-16 text-lg">X</Button
-			>
-		</div>
-		{#if tfAnswer !== null}
-			<p
-				class="rounded-lg p-3 text-sm {tfAnswer === item.answer
-					? 'bg-green-50 text-green-800'
-					: 'bg-red-50 text-red-800'}"
-			>
-				{tfAnswer === item.answer ? 'Benar!' : `Jawaban: ${item.answer ? 'O' : 'X'}.`}
-				{item.explanation}
-			</p>
-		{/if}
-	{:else}
-		<p class="text-gray-900 dark:text-white">
-			<span class="mr-1 text-gray-400">{number}.</span>{item.prompt}
-		</p>
-		<div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-			{#each item.options as option, i (option)}
-				<Button
-					size="sm"
-					color={choiceColor(i, item.correct)}
-					disabled={chosen !== null}
-					onclick={() => (chosen = i)}
-					class="justify-start text-left">{option}</Button
+<li class="flex gap-3 border-t border-paper-3 py-5 first:border-t-0 first:pt-0 last:pb-0 sm:gap-4">
+	<span
+		class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-paper-2 font-serif text-sm font-bold text-ink-soft"
+		>{number}</span
+	>
+	<div class="flex min-w-0 flex-1 flex-col gap-3">
+		{#if item.kind === 'reveal'}
+			<p lang="ko" class="pt-0.5 text-lg whitespace-pre-line text-ink">{item.prompt}</p>
+			<div>
+				<button
+					type="button"
+					class="btn btn-ghost btn-sm"
+					aria-expanded={revealed}
+					onclick={() => (revealed = !revealed)}
 				>
-			{/each}
-		</div>
-		{#if chosen !== null}
-			<p
-				class="rounded-lg p-3 text-sm {chosen === item.correct
-					? 'bg-green-50 text-green-800'
-					: 'bg-red-50 text-red-800'}"
-			>
-				{chosen === item.correct ? 'Benar!' : `Jawaban: ${item.options[item.correct]}.`}
-				{item.hint ?? ''}
-			</p>
+					{#if revealed}
+						<EyeSlashOutline class="h-4 w-4" /> Sembunyikan jawaban
+					{:else}
+						<EyeOutline class="h-4 w-4" /> Lihat jawaban
+					{/if}
+				</button>
+			</div>
+			{#if revealed}
+				<div
+					class="animate-rise rounded-xl border border-jade-100 bg-jade-50 px-4 py-3 text-jade-700"
+				>
+					<p lang="ko" class="font-serif text-xl whitespace-pre-line">{item.answer}</p>
+					{#if item.hint}
+						<p class="mt-2 flex items-start gap-1.5 text-sm text-jade-700/90">
+							<LightbulbOutline class="mt-0.5 h-4 w-4 shrink-0" />
+							<span>{item.hint}</span>
+						</p>
+					{/if}
+				</div>
+			{/if}
+		{:else if item.kind === 'truefalse'}
+			<p lang="ko" class="pt-0.5 text-lg text-ink">{item.statement}</p>
+			<div class="flex gap-3">
+				{#each [true, false] as value (value)}
+					<button
+						type="button"
+						aria-label={value ? 'Benar (O)' : 'Salah (X)'}
+						disabled={tfAnswer !== null}
+						onclick={() => (tfAnswer = value)}
+						class="grid h-12 w-12 place-items-center rounded-full border-2 font-serif text-xl font-bold transition {tfStyles[
+							answerState(value, tfAnswer, item.answer)
+						]}"
+					>
+						{value ? 'O' : 'X'}
+					</button>
+				{/each}
+			</div>
+			{#if tfAnswer !== null}
+				<p
+					role="status"
+					class="rounded-xl px-4 py-3 text-sm {feedbackClass(tfAnswer === item.answer)}"
+				>
+					<strong class="font-semibold">
+						{tfAnswer === item.answer ? 'Benar!' : `Jawaban: ${item.answer ? 'O' : 'X'}.`}
+					</strong>
+					{item.explanation}
+				</p>
+			{/if}
+		{:else}
+			<p lang="ko" class="pt-0.5 text-lg text-ink">{item.prompt}</p>
+			<div class="grid gap-2 sm:grid-cols-2">
+				{#each item.options as option, i (option)}
+					<AnswerOption
+						label={option}
+						index={i}
+						size="sm"
+						showKey={false}
+						lang="ko"
+						state={answerState(i, chosen, item.correct)}
+						onclick={() => (chosen = i)}
+					/>
+				{/each}
+			</div>
+			{#if chosen !== null}
+				<p
+					role="status"
+					class="rounded-xl px-4 py-3 text-sm {feedbackClass(chosen === item.correct)}"
+				>
+					<strong class="font-semibold">
+						{chosen === item.correct ? 'Benar!' : `Jawaban: ${item.options[item.correct]}.`}
+					</strong>
+					{item.hint ?? ''}
+				</p>
+			{/if}
 		{/if}
-	{/if}
+	</div>
 </li>
