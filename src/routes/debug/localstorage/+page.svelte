@@ -65,7 +65,8 @@
 	</button>
 </div>
 
-<pre class="overflow-x-auto rounded-lg bg-gray-900 p-4 font-mono text-sm text-gray-100">{output}</pre>
+<pre
+	class="overflow-x-auto rounded-lg bg-gray-900 p-4 font-mono text-sm text-gray-100">{output}</pre>
 
 <!-- ponytail: raw always kept for values that fail JSON.parse; upgrade to per-key accordion/copy buttons when page grows -->
 {#if Object.keys(raw).length === 0}

@@ -10,6 +10,7 @@
 		value = $bindable(),
 		allLabel,
 		allCount,
+		scroll = false,
 		onchange
 	}: {
 		options: Option[];
@@ -17,6 +18,8 @@
 		value: T | null;
 		allLabel?: string;
 		allCount?: number;
+		/** Keep chips on one swipeable row on small screens instead of wrapping. */
+		scroll?: boolean;
 		onchange?: (value: T | null) => void;
 	} = $props();
 
@@ -24,40 +27,32 @@
 		value = next;
 		onchange?.(next);
 	}
-
-	function chipClass(active: boolean) {
-		return active
-			? 'bg-purple-500 text-white'
-			: 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300';
-	}
-
-	const withCount = (label: string, count?: number) =>
-		count === undefined ? label : `${label} (${count})`;
 </script>
 
-<div class="flex flex-wrap gap-2">
+{#snippet chip(label: string, count: number | undefined, active: boolean, next: T | null)}
+	<button
+		type="button"
+		class="chip {active ? 'chip-active' : ''}"
+		aria-pressed={active}
+		onclick={() => select(next)}
+	>
+		{label}
+		{#if count !== undefined}
+			<span class="text-xs tabular-nums {active ? 'text-paper/60' : 'text-ink-muted'}">{count}</span
+			>
+		{/if}
+	</button>
+{/snippet}
+
+<div
+	class="flex gap-2 {scroll
+		? 'no-scrollbar -mx-4 overflow-x-auto px-4 pb-0.5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0'
+		: 'flex-wrap'}"
+>
 	{#if allLabel}
-		<button
-			type="button"
-			class="rounded-full px-3 py-1 text-base font-medium transition-colors {chipClass(
-				value === null
-			)}"
-			aria-pressed={value === null}
-			onclick={() => select(null)}
-		>
-			{withCount(allLabel, allCount)}
-		</button>
+		{@render chip(allLabel, allCount, value === null, null)}
 	{/if}
 	{#each options as opt (opt.value)}
-		<button
-			type="button"
-			class="rounded-full px-3 py-1 text-base font-medium transition-colors {chipClass(
-				value === opt.value
-			)}"
-			aria-pressed={value === opt.value}
-			onclick={() => select(opt.value)}
-		>
-			{withCount(opt.label, opt.count)}
-		</button>
+		{@render chip(opt.label, opt.count, value === opt.value, opt.value)}
 	{/each}
 </div>
