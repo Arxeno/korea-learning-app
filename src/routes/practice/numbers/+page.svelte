@@ -2,12 +2,7 @@
 	import { dateQuestion, timeQuestion, type DrillQuestion } from '$lib/koreanNumbers';
 	import FilterChips from '$lib/components/FilterChips.svelte';
 	import { resolve } from '$app/paths';
-	import { ArrowRightOutline } from 'flowbite-svelte-icons';
-	import PageHeader from '$lib/components/PageHeader.svelte';
-	import QuizProgress from '$lib/components/QuizProgress.svelte';
-	import AnswerOption, { answerState } from '$lib/components/AnswerOption.svelte';
-	import ResultSummary from '$lib/components/ResultSummary.svelte';
-	import { revealActions } from '$lib/reveal';
+	import { Button, Card, Progressbar } from 'flowbite-svelte';
 
 	type Mode = 'date' | 'time';
 	const ROUNDS = 10;
@@ -22,7 +17,6 @@
 	let score = $state(0);
 	let selected = $state<string | null>(null);
 	let finished = $state(false);
-	let actions = $state<HTMLElement>();
 
 	const current = $derived(questions[index]);
 
@@ -41,7 +35,6 @@
 		if (selected !== null) return;
 		selected = option;
 		if (option === current.answer) score++;
-		void revealActions(() => actions);
 	}
 
 	function next() {
@@ -53,6 +46,13 @@
 		}
 	}
 
+	function optionColor(option: string): 'green' | 'red' | 'light' {
+		if (selected === null) return 'light';
+		if (option === current.answer) return 'green';
+		if (option === selected) return 'red';
+		return 'light';
+	}
+
 	start();
 </script>
 
@@ -60,68 +60,68 @@
 	<title>Latihan Membaca Angka - Hangul Learning</title>
 </svelte:head>
 
-<div class="mx-auto flex w-full max-w-xl flex-col gap-6">
-	<PageHeader
-		back={{ href: resolve('/practice'), label: 'Latihan' }}
-		eyebrow="숫자 읽기"
-		title="Membaca Angka"
-		subtitle="Pilih cara membaca yang benar."
-		size="md"
-	/>
-
-	<FilterChips options={modes} bind:value={mode} onchange={start} />
+<div class="mx-auto flex max-w-lg flex-col items-center gap-6">
+	<div class="w-full">
+		<a href={resolve('/practice')} class="text-sm text-purple-600 hover:underline">&larr; Latihan</a
+		>
+		<h1 class="mt-2 mb-1 text-3xl font-bold text-gray-900 dark:text-white">Membaca Angka</h1>
+		<p class="mb-4 text-gray-500">Pilih cara membaca yang benar.</p>
+		<FilterChips options={modes} bind:value={mode} onchange={start} />
+	</div>
 
 	{#if !finished}
-		<QuizProgress current={index + 1} total={ROUNDS} {score} label="Soal" />
-
-		<div class="card px-6 py-10 text-center sm:py-12">
-			<p class="eyebrow">
-				{mode === 'time' ? 'Bagaimana membaca jam ini?' : 'Bagaimana membaca tanggal ini?'}
-			</p>
-			<p lang="ko" class="mt-4 font-serif text-5xl font-bold text-ink tabular-nums sm:text-6xl">
-				{current.prompt}
-			</p>
+		<div class="w-full">
+			<div class="mb-2 flex items-center justify-between text-sm text-gray-500">
+				<span>Soal {index + 1} / {ROUNDS}</span>
+				<span>Skor: {score}</span>
+			</div>
+			<Progressbar progress={((index + 1) / ROUNDS) * 100} color="purple" size="h-2.5" />
 		</div>
 
-		<div class="flex flex-col gap-3">
-			{#each current.options as option, i (option)}
-				<AnswerOption
-					label={option}
-					index={i}
-					lang="ko"
-					state={answerState(option, selected, current.answer)}
+		<Card class="w-full text-center">
+			<p class="mb-2 text-sm tracking-wider text-gray-500 uppercase">
+				{mode === 'time' ? 'Bagaimana membaca jam ini?' : 'Bagaimana membaca tanggal ini?'}
+			</p>
+			<p class="text-4xl font-bold text-gray-900 dark:text-white">{current.prompt}</p>
+		</Card>
+
+		<div class="flex w-full flex-col gap-3">
+			{#each current.options as option (option)}
+				<Button
+					color={optionColor(option)}
+					size="lg"
+					disabled={selected !== null}
 					onclick={() => choose(option)}
-				/>
+					class="w-full text-left text-lg"
+				>
+					{option}
+				</Button>
 			{/each}
 		</div>
 
 		{#if selected !== null}
-			{@const correct = selected === current.answer}
-			<div bind:this={actions} class="flex scroll-mb-28 flex-col gap-3 md:scroll-mb-8">
-				<p
-					role="status"
-					class="rounded-xl px-4 py-3 text-sm {correct
-						? 'bg-jade-50 text-jade-700'
-						: 'bg-coral-50 text-coral-700'}"
-				>
-					<strong class="font-semibold">
-						{#if correct}Benar! 🎉{:else}Jawaban: <span lang="ko">{current.answer}</span>.{/if}
-					</strong>
-					{current.hint}
-				</p>
-				<button type="button" class="btn btn-primary w-full" onclick={next}>
-					{index + 1 >= ROUNDS ? 'Lihat Hasil' : 'Soal Berikutnya'}
-					<ArrowRightOutline class="h-5 w-5" />
-				</button>
-			</div>
+			<p
+				class="w-full rounded-lg p-3 text-sm {selected === current.answer
+					? 'bg-green-50 text-green-800'
+					: 'bg-red-50 text-red-800'}"
+			>
+				{selected === current.answer ? 'Benar!' : `Jawaban: ${current.answer}.`}
+				{current.hint}
+			</p>
+			<Button color="purple" size="lg" onclick={next} class="w-full">
+				{index + 1 >= ROUNDS ? 'Lihat Hasil' : 'Soal Berikutnya'}
+			</Button>
 		{/if}
 	{:else}
-		<ResultSummary
-			title="Latihan Selesai!"
-			correct={score}
-			total={ROUNDS}
-			onrestart={start}
-			secondary={{ href: resolve('/practice'), label: 'Kembali ke Latihan' }}
-		/>
+		<div class="flex w-full flex-col items-center gap-6 py-8">
+			<p class="text-6xl">{score >= 8 ? '🎉' : score >= 5 ? '💪' : '💫'}</p>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+				{score} / {ROUNDS} benar
+			</h2>
+			<div class="flex w-full gap-3">
+				<Button color="purple" size="lg" onclick={start} class="flex-1">Main Lagi</Button>
+				<Button color="light" size="lg" href={resolve('/practice')} class="flex-1">Kembali</Button>
+			</div>
+		</div>
 	{/if}
 </div>
