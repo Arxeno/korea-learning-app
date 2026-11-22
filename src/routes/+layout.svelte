@@ -5,17 +5,24 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
 	let activeUrl = $derived(page.url.pathname);
 
-	const links = [
+	const baseLinks = [
 		{ href: resolve('/'), label: 'Beranda' },
 		{ href: resolve('/vocabulary'), label: 'Kosa Kata' },
 		{ href: resolve('/quiz'), label: 'Kuis' },
 		{ href: resolve('/practice'), label: 'Latihan' },
 		{ href: resolve('/scores'), label: 'Skor' }
 	];
+
+	let links = $derived([
+		...baseLinks,
+		data.user
+			? { href: resolve('/account'), label: 'Akun' }
+			: { href: resolve('/auth/sign-in'), label: 'Masuk' }
+	]);
 
 	// Sub-pages (e.g. /practice/numbers) keep their section highlighted.
 	const isActive = (href: string) =>
