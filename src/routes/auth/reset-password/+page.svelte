@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Button, Helper, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
 
 	let { data, form } = $props();
@@ -16,21 +15,21 @@
 
 {#if invalidLink}
 	<AuthCard
+		eyebrow="비밀번호 재설정"
 		title="Tautan tidak valid"
 		error="Tautan atur ulang kata sandi tidak valid, sudah dipakai, atau sudah kedaluwarsa."
 	>
-		<Button href={resolve('/auth/forgot-password')} color="purple" class="w-full">
+		<a href={resolve('/auth/forgot-password')} class="btn btn-primary w-full">
 			Minta tautan baru
-		</Button>
+		</a>
 
 		{#snippet footer()}
-			<a href={resolve('/auth/sign-in')} class="font-medium text-purple-600 hover:underline">
-				Kembali ke halaman masuk
-			</a>
+			<a href={resolve('/auth/sign-in')} class="link">Kembali ke halaman masuk</a>
 		{/snippet}
 	</AuthCard>
 {:else}
 	<AuthCard
+		eyebrow="비밀번호 재설정"
 		title="Atur ulang kata sandi"
 		subtitle="Buat kata sandi baru untuk akunmu."
 		error={form?.message}
@@ -49,8 +48,9 @@
 			<input type="hidden" name="token" value={data.token} />
 
 			<div>
-				<Label for="password" class="mb-2">Kata sandi baru</Label>
-				<Input
+				<label for="password" class="label">Kata sandi baru</label>
+				<input
+					class="input"
 					id="password"
 					name="password"
 					type="password"
@@ -60,12 +60,13 @@
 					aria-describedby="password-help"
 					required
 				/>
-				<Helper id="password-help" class="mt-1">Minimal 8 karakter.</Helper>
+				<p id="password-help" class="mt-1.5 text-xs text-ink-muted">Minimal 8 karakter.</p>
 			</div>
 
 			<div>
-				<Label for="confirmPassword" class="mb-2">Konfirmasi kata sandi baru</Label>
-				<Input
+				<label for="confirmPassword" class="label">Konfirmasi kata sandi baru</label>
+				<input
+					class="input"
 					id="confirmPassword"
 					name="confirmPassword"
 					type="password"
@@ -76,9 +77,9 @@
 				/>
 			</div>
 
-			<Button type="submit" color="purple" class="w-full" disabled={submitting}>
+			<button type="submit" class="btn btn-primary w-full" disabled={submitting}>
 				{submitting ? 'Menyimpan…' : 'Simpan kata sandi baru'}
-			</Button>
+			</button>
 		</form>
 	</AuthCard>
 {/if}

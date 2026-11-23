@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Button, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
 	import { readGuestProgress } from '$lib/stores.svelte';
 
@@ -22,6 +21,7 @@
 </svelte:head>
 
 <AuthCard
+	eyebrow="로그인"
 	title="Masuk"
 	subtitle="Masuk ke akun Hangul Learning-mu."
 	error={form?.message}
@@ -43,14 +43,14 @@
 		<input type="hidden" name="redirectTo" value={data.redirectTo} />
 
 		<div>
-			<Label for="email" class="mb-2">Email</Label>
-			<Input
+			<label for="email" class="label">Email</label>
+			<input
+				class="input"
 				id="email"
 				name="email"
 				type="email"
 				autocomplete="email"
 				placeholder="nama@email.com"
-				class="placeholder:text-gray-400"
 				value={form?.email ?? ''}
 				required
 			/>
@@ -58,15 +58,11 @@
 
 		<div>
 			<div class="mb-2 flex items-center justify-between">
-				<Label for="password">Kata sandi</Label>
-				<a
-					href={resolve('/auth/forgot-password')}
-					class="text-sm font-medium text-purple-600 hover:underline"
-				>
-					Lupa kata sandi?
-				</a>
+				<label for="password" class="label mb-0">Kata sandi</label>
+				<a href={resolve('/auth/forgot-password')} class="link text-sm">Lupa kata sandi?</a>
 			</div>
-			<Input
+			<input
+				class="input"
 				id="password"
 				name="password"
 				type="password"
@@ -76,22 +72,22 @@
 		</div>
 
 		{#if hasGuestProgress}
-			<p class="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+			<p class="alert-warning">
 				Progress tanpa akun di perangkat ini tidak dipindah ke akunmu dan akan terhapus saat kamu
 				keluar. Belum punya akun?
-				<a href={resolve('/auth/sign-up')} class="font-medium underline">Daftar</a> untuk menyimpannya.
+				<a href={resolve('/auth/sign-up')} class="font-semibold underline underline-offset-2"
+					>Daftar</a
+				> untuk menyimpannya.
 			</p>
 		{/if}
 
-		<Button type="submit" color="purple" class="w-full" disabled={submitting}>
+		<button type="submit" class="btn btn-primary w-full" disabled={submitting}>
 			{submitting ? 'Memproses…' : 'Masuk'}
-		</Button>
+		</button>
 	</form>
 
 	{#snippet footer()}
 		Belum punya akun?
-		<a href={resolve('/auth/sign-up')} class="font-medium text-purple-600 hover:underline">
-			Daftar
-		</a>
+		<a href={resolve('/auth/sign-up')} class="link">Daftar</a>
 	{/snippet}
 </AuthCard>

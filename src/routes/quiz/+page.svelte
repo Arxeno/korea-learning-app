@@ -6,8 +6,12 @@
 	import { selectQuizWords } from '$lib/scheduler';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import type { ResolvedPathname } from '$app/types';
-	import { Button, Progressbar, Card } from 'flowbite-svelte';
+	import { ArrowRightOutline } from 'flowbite-svelte-icons';
+	import PageHeader from '$lib/components/PageHeader.svelte';
+	import QuizProgress from '$lib/components/QuizProgress.svelte';
+	import AnswerOption, { answerState } from '$lib/components/AnswerOption.svelte';
+	import ResultSummary from '$lib/components/ResultSummary.svelte';
+	import { revealActions } from '$lib/reveal';
 	import { shouldPromptAfterQuiz } from '$lib/registerPrompt';
 	import RegisterPromptDialog from '$lib/components/RegisterPromptDialog.svelte';
 
@@ -24,9 +28,8 @@
 	let options = $state<string[]>([]);
 	let finished = $state(false);
 	let quizWords = $state<Word[]>([]);
+	let actions = $state<HTMLElement>();
 	let registerPromptOpen = $state(false);
-	// resolve() has no query-string support; appending one still yields a resolved app path.
-	const signUpHref = (resolve('/auth/sign-up') + '?redirectTo=%2Fscores') as ResolvedPathname;
 
 	function shuffle<T>(arr: T[]): T[] {
 		const a = [...arr];
@@ -83,6 +86,7 @@
 			score++;
 		}
 		wordStatsStore.record(quizWords[currentIndex].id, isCorrect);
+		void revealActions(() => actions);
 	}
 
 	function nextQuestion() {
@@ -103,13 +107,6 @@
 		}
 	}
 
-	function getOptionColor(option: string): 'green' | 'red' | 'light' {
-		if (!answered) return 'light';
-		if (option === correctAnswer) return 'green';
-		if (option === selectedAnswer && option !== correctAnswer) return 'red';
-		return 'light';
-	}
-
 	startQuiz();
 </script>
 
@@ -117,9 +114,11 @@
 	<title>Kuis - Hangul Learning</title>
 </svelte:head>
 
-<div class="mx-auto flex max-w-lg flex-col items-center gap-6">
-	<div class="w-full">
-		<p class="mb-2 text-sm font-semibold text-gray-500">Pilih pelajaran</p>
+<div class="mx-auto flex w-full max-w-xl flex-col gap-6">
+	<PageHeader eyebrow="퀴즈" title="Kuis" size="md" />
+
+	<div class="flex flex-col gap-2">
+		<p class="eyebrow">Pilih pelajaran</p>
 		<FilterChips
 			options={lessonOptions}
 			bind:value={activeLesson}
@@ -129,79 +128,67 @@
 	</div>
 
 	{#if !finished}
-		<div class="w-full">
-			<div class="mb-2 flex items-center justify-between text-sm text-gray-500">
-				<span>Pertanyaan {currentIndex + 1} / {quizWords.length}</span>
-				<span>Skor: {score}</span>
-			</div>
-			<Progressbar
-				progress={((currentIndex + 1) / quizWords.length) * 100}
-				color="purple"
-				size="h-2.5"
-			/>
+		{@const word = quizWords[currentIndex]}
+		<QuizProgress current={currentIndex + 1} total={quizWords.length} {score} />
+
+		<div class="card px-6 py-10 text-center sm:py-12">
+			<p class="eyebrow">Apa artinya?</p>
+			<p lang="ko" class="mt-4 font-serif text-5xl font-bold text-ink sm:text-6xl">
+				{word.hangeul}
+			</p>
+			<p class="mt-3 text-ink-muted italic">{word.phonetic}</p>
 		</div>
 
-		<Card class="w-full text-center">
-			<p class="mb-2 text-sm tracking-wider text-gray-500 uppercase">Apa artinya?</p>
-			<p class="text-4xl font-bold text-gray-900 dark:text-white">
-				{quizWords[currentIndex].hangeul}
-			</p>
-			<p class="mt-1 text-sm text-gray-500 italic">{quizWords[currentIndex].phonetic}</p>
-		</Card>
-
-		<div class="flex w-full flex-col gap-3">
-			{#each options as option (option)}
-				<Button
-					color={getOptionColor(option)}
-					size="lg"
-					disabled={answered}
+		<div class="flex flex-col gap-3">
+			{#each options as option, i (option)}
+				<AnswerOption
+					label={option}
+					index={i}
+					state={answerState(option, answered ? selectedAnswer : null, correctAnswer)}
 					onclick={() => selectAnswer(option)}
-					class="w-full text-left"
-				>
-					{option}
-				</Button>
+				/>
 			{/each}
 		</div>
 
 		{#if answered}
-			<Button color="purple" size="lg" onclick={nextQuestion} class="w-full">
-				{currentIndex + 1 >= quizWords.length ? 'Lihat Hasil' : 'Pertanyaan Berikutnya'}
-			</Button>
+			{@const correct = selectedAnswer === correctAnswer}
+			<div
+				bind:this={actions}
+				class="flex scroll-mb-28 flex-col gap-3 sm:flex-row sm:items-center md:scroll-mb-8"
+			>
+				<p
+					role="status"
+					class="flex-1 rounded-xl px-4 py-3 text-sm font-medium {correct
+						? 'bg-jade-50 text-jade-700'
+						: 'bg-coral-50 text-coral-700'}"
+				>
+					{#if correct}
+						Benar! <span lang="ko">잘했어요</span> 🎉
+					{:else}
+						Jawaban yang benar: <strong>{correctAnswer}</strong>
+					{/if}
+				</p>
+				<button type="button" class="btn btn-primary" onclick={nextQuestion}>
+					{currentIndex + 1 >= quizWords.length ? 'Lihat Hasil' : 'Berikutnya'}
+					<ArrowRightOutline class="h-5 w-5" />
+				</button>
+			</div>
 		{/if}
 	{:else}
-		<div class="flex flex-col items-center gap-6 py-8">
-			<p class="text-6xl">{score >= 8 ? '🎉' : score >= 5 ? '💪' : '💫'}</p>
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Kuis Selesai!</h2>
+		<ResultSummary
+			title="Kuis Selesai!"
+			correct={score}
+			total={quizWords.length}
+			onrestart={startQuiz}
+			secondary={{ href: resolve('/scores'), label: 'Lihat Skor' }}
+		/>
 
-			<div class="grid w-full grid-cols-3 gap-4">
-				<Card class="p-4 text-center">
-					<p class="text-2xl font-bold text-green-600">{score}</p>
-					<p class="text-sm text-green-500">Benar</p>
-				</Card>
-				<Card class="p-4 text-center">
-					<p class="text-2xl font-bold text-red-600">{quizWords.length - score}</p>
-					<p class="text-sm text-red-500">Salah</p>
-				</Card>
-				<Card class="p-4 text-center">
-					<p class="text-2xl font-bold text-purple-600">
-						{Math.round((score / quizWords.length) * 100)}%
-					</p>
-					<p class="text-sm text-purple-500">Akurasi</p>
-				</Card>
-			</div>
-
-			<div class="flex w-full gap-3">
-				<Button color="purple" size="lg" onclick={startQuiz} class="flex-1">Main Lagi</Button>
-				<Button color="light" size="lg" href={resolve('/scores')} class="flex-1">Lihat Skor</Button>
-			</div>
-
-			{#if !page.data.user}
-				<p class="text-center text-sm text-gray-500">
-					<a href={signUpHref} class="font-medium text-purple-600 hover:underline"> Daftar </a>
-					supaya progress-mu tersimpan di akun.
-				</p>
-			{/if}
-		</div>
+		{#if !page.data.user}
+			<p class="text-center text-sm text-ink-muted">
+				<a href={resolve('/auth/sign-up?redirectTo=%2Fscores')} class="link">Daftar</a>
+				supaya progress-mu tersimpan di akun.
+			</p>
+		{/if}
 	{/if}
 </div>
 

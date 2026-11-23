@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Button, Checkbox, Helper, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
 	import { clearGuestProgress, readGuestProgress, type GuestProgress } from '$lib/stores.svelte';
 
@@ -12,7 +11,6 @@
 
 	// Progress made in this browser without an account, offered for import into the new account.
 	let guestProgress = $state<GuestProgress | null>(null);
-	let importProgress = $state(true);
 	onMount(() => {
 		guestProgress = readGuestProgress();
 	});
@@ -29,6 +27,7 @@
 </svelte:head>
 
 <AuthCard
+	eyebrow="회원가입"
 	title="Daftar"
 	subtitle="Buat akun untuk mulai belajar bahasa Korea."
 	error={form?.message}
@@ -51,36 +50,37 @@
 		<input type="hidden" name="redirectTo" value={data.redirectTo} />
 
 		<div>
-			<Label for="name" class="mb-2">Nama</Label>
-			<Input
+			<label for="name" class="label">Nama</label>
+			<input
+				class="input"
 				id="name"
 				name="name"
 				type="text"
 				autocomplete="name"
 				placeholder="Nama kamu"
-				class="placeholder:text-gray-400"
 				value={form?.name ?? ''}
 				required
 			/>
 		</div>
 
 		<div>
-			<Label for="email" class="mb-2">Email</Label>
-			<Input
+			<label for="email" class="label">Email</label>
+			<input
+				class="input"
 				id="email"
 				name="email"
 				type="email"
 				autocomplete="email"
 				placeholder="nama@email.com"
-				class="placeholder:text-gray-400"
 				value={form?.email ?? ''}
 				required
 			/>
 		</div>
 
 		<div>
-			<Label for="password" class="mb-2">Kata sandi</Label>
-			<Input
+			<label for="password" class="label">Kata sandi</label>
+			<input
+				class="input"
 				id="password"
 				name="password"
 				type="password"
@@ -90,12 +90,13 @@
 				aria-describedby="password-help"
 				required
 			/>
-			<Helper id="password-help" class="mt-1">Minimal 8 karakter.</Helper>
+			<p id="password-help" class="mt-1.5 text-xs text-ink-muted">Minimal 8 karakter.</p>
 		</div>
 
 		<div>
-			<Label for="confirmPassword" class="mb-2">Konfirmasi kata sandi</Label>
-			<Input
+			<label for="confirmPassword" class="label">Konfirmasi kata sandi</label>
+			<input
+				class="input"
 				id="confirmPassword"
 				name="confirmPassword"
 				type="password"
@@ -107,30 +108,35 @@
 		</div>
 
 		{#if guestProgress}
-			<div class="rounded-lg border border-purple-200 bg-purple-50 p-4">
-				<Checkbox name="importProgress" bind:checked={importProgress} color="purple">
-					<span>
-						Simpan progress yang sudah ada
-						<span class="font-semibold">
-							({guestProgress.quizCount} kuis, {guestProgress.wordCount} kata)
-						</span>
-						ke akunmu
+			<label
+				class="flex cursor-pointer items-start gap-3 rounded-xl border border-jade-100 bg-jade-50 px-4 py-3"
+			>
+				<input
+					type="checkbox"
+					name="importProgress"
+					checked
+					class="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-jade-600"
+				/>
+				<span class="text-sm text-ink-soft">
+					<span class="font-semibold text-ink">
+						Simpan progress yang sudah ada ({guestProgress.quizCount} kuis, {guestProgress.wordCount}
+						kata) ke akunmu
 					</span>
-				</Checkbox>
-				<Helper class="mt-1 ps-6">Supaya bisa dilanjutkan di HP atau laptop lain.</Helper>
-				<input type="hidden" name="guestProgress" value={guestProgressJson} />
-			</div>
+					<span class="mt-0.5 block text-ink-muted"
+						>Supaya bisa dilanjutkan di HP atau laptop lain.</span
+					>
+				</span>
+			</label>
+			<input type="hidden" name="guestProgress" value={guestProgressJson} />
 		{/if}
 
-		<Button type="submit" color="purple" class="w-full" disabled={submitting}>
+		<button type="submit" class="btn btn-primary w-full" disabled={submitting}>
 			{submitting ? 'Memproses…' : 'Daftar'}
-		</Button>
+		</button>
 	</form>
 
 	{#snippet footer()}
 		Sudah punya akun?
-		<a href={resolve('/auth/sign-in')} class="font-medium text-purple-600 hover:underline">
-			Masuk
-		</a>
+		<a href={resolve('/auth/sign-in')} class="link">Masuk</a>
 	{/snippet}
 </AuthCard>
