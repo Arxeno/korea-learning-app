@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { lessonExercises } from '$lib/exercises';
 	import { resolve } from '$app/paths';
-	import { Card } from 'flowbite-svelte';
-	import { ClipboardCheckSolid, ClockSolid } from 'flowbite-svelte-icons';
+	import PageHeader from '$lib/components/PageHeader.svelte';
+	import { ArrowRightOutline, ClipboardCheckOutline, ClockOutline } from 'flowbite-svelte-icons';
 
 	const lessons = lessonExercises.map((l) => ({
 		...l,
@@ -14,37 +14,63 @@
 	<title>Latihan - Hangul Learning</title>
 </svelte:head>
 
-<div class="flex flex-col gap-6">
-	<div>
-		<h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Latihan</h1>
-		<p class="text-gray-500">
-			Soal dari buku pelajaran beserta jawabannya, dan latihan membaca angka.
-		</p>
-	</div>
+<div class="flex flex-col gap-8">
+	<PageHeader
+		eyebrow="연습"
+		title="Latihan"
+		subtitle="Soal dari buku pelajaran beserta jawabannya, dan latihan membaca angka."
+	/>
 
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		{#each lessons as lesson (lesson.lesson)}
-			<a href={resolve('/practice/lesson/[lesson]', { lesson: String(lesson.lesson) })}>
-				<Card class="h-full max-w-none p-6 transition-all hover:scale-[1.02] hover:shadow-xl">
-					<ClipboardCheckSolid class="mb-3 h-8 w-8 text-indigo-500" />
-					<p class="text-sm font-semibold text-purple-600">Pelajaran {lesson.lesson}</p>
-					<h2 class="text-2xl font-bold text-gray-900 dark:text-white">{lesson.title}</h2>
-					<p class="text-gray-500">{lesson.titleId}</p>
-					<p class="mt-2 text-sm text-gray-500">
-						{lesson.sets.length} bagian · {lesson.itemCount} soal
-					</p>
-				</Card>
+			<a
+				href={resolve('/practice/lesson/[lesson]', { lesson: String(lesson.lesson) })}
+				class="card card-link group flex flex-col gap-6 p-6"
+			>
+				<div class="flex items-center justify-between">
+					<span class="stamp">Pelajaran {lesson.lesson}</span>
+					<span
+						class="grid h-11 w-11 place-items-center rounded-xl bg-navy-50 text-navy-600 ring-1 ring-navy-100"
+					>
+						<ClipboardCheckOutline class="h-6 w-6" />
+					</span>
+				</div>
+				<div>
+					<h2 lang="ko" class="font-serif text-3xl font-bold text-ink">{lesson.title}</h2>
+					<p class="mt-1 text-ink-soft">{lesson.titleId}</p>
+				</div>
+				<div
+					class="mt-auto flex items-center justify-between border-t border-paper-3 pt-4 text-sm text-ink-muted"
+				>
+					<span>{lesson.sets.length} bagian · {lesson.itemCount} soal</span>
+					<ArrowRightOutline
+						class="h-5 w-5 transition group-hover:translate-x-1 group-hover:text-ink"
+					/>
+				</div>
 			</a>
 		{/each}
 
-		<a href={resolve('/practice/numbers')}>
-			<Card class="h-full max-w-none p-6 transition-all hover:scale-[1.02] hover:shadow-xl">
-				<ClockSolid class="mb-3 h-8 w-8 text-pink-500" />
-				<p class="text-sm font-semibold text-purple-600">Pelajaran 4 & 5</p>
-				<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Membaca Angka</h2>
-				<p class="text-gray-500">Tanggal & jam dalam Hangul</p>
-				<p class="mt-2 text-sm text-gray-500">10 soal acak per ronde</p>
-			</Card>
+		<a href={resolve('/practice/numbers')} class="card card-link group flex flex-col gap-6 p-6">
+			<div class="flex items-center justify-between">
+				<span class="stamp">Pelajaran 4 &amp; 5</span>
+				<span
+					class="grid h-11 w-11 place-items-center rounded-xl bg-jade-50 text-jade-600 ring-1 ring-jade-100"
+				>
+					<ClockOutline class="h-6 w-6" />
+				</span>
+			</div>
+			<div>
+				<h2 lang="ko" class="font-serif text-3xl font-bold text-ink">숫자 읽기</h2>
+				<p class="mt-1 text-ink-soft">Membaca Angka · tanggal &amp; jam dalam Hangul</p>
+			</div>
+			<div
+				class="mt-auto flex items-center justify-between border-t border-paper-3 pt-4 text-sm text-ink-muted"
+			>
+				<span>10 soal acak per ronde</span>
+				<ArrowRightOutline
+					class="h-5 w-5 transition group-hover:translate-x-1 group-hover:text-ink"
+				/>
+			</div>
 		</a>
 	</div>
 </div>

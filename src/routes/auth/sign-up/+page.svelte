@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Button, Helper, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
 
 	let { data, form } = $props();
@@ -14,6 +13,7 @@
 </svelte:head>
 
 <AuthCard
+	eyebrow="회원가입"
 	title="Daftar"
 	subtitle="Buat akun untuk mulai belajar bahasa Korea."
 	error={form?.message}
@@ -32,36 +32,37 @@
 		<input type="hidden" name="redirectTo" value={data.redirectTo} />
 
 		<div>
-			<Label for="name" class="mb-2">Nama</Label>
-			<Input
+			<label for="name" class="label">Nama</label>
+			<input
+				class="input"
 				id="name"
 				name="name"
 				type="text"
 				autocomplete="name"
 				placeholder="Nama kamu"
-				class="placeholder:text-gray-400"
 				value={form?.name ?? ''}
 				required
 			/>
 		</div>
 
 		<div>
-			<Label for="email" class="mb-2">Email</Label>
-			<Input
+			<label for="email" class="label">Email</label>
+			<input
+				class="input"
 				id="email"
 				name="email"
 				type="email"
 				autocomplete="email"
 				placeholder="nama@email.com"
-				class="placeholder:text-gray-400"
 				value={form?.email ?? ''}
 				required
 			/>
 		</div>
 
 		<div>
-			<Label for="password" class="mb-2">Kata sandi</Label>
-			<Input
+			<label for="password" class="label">Kata sandi</label>
+			<input
+				class="input"
 				id="password"
 				name="password"
 				type="password"
@@ -71,12 +72,13 @@
 				aria-describedby="password-help"
 				required
 			/>
-			<Helper id="password-help" class="mt-1">Minimal 8 karakter.</Helper>
+			<p id="password-help" class="mt-1.5 text-xs text-ink-muted">Minimal 8 karakter.</p>
 		</div>
 
 		<div>
-			<Label for="confirmPassword" class="mb-2">Konfirmasi kata sandi</Label>
-			<Input
+			<label for="confirmPassword" class="label">Konfirmasi kata sandi</label>
+			<input
+				class="input"
 				id="confirmPassword"
 				name="confirmPassword"
 				type="password"
@@ -87,15 +89,13 @@
 			/>
 		</div>
 
-		<Button type="submit" color="purple" class="w-full" disabled={submitting}>
+		<button type="submit" class="btn btn-primary w-full" disabled={submitting}>
 			{submitting ? 'Memproses…' : 'Daftar'}
-		</Button>
+		</button>
 	</form>
 
 	{#snippet footer()}
 		Sudah punya akun?
-		<a href={resolve('/auth/sign-in')} class="font-medium text-purple-600 hover:underline">
-			Masuk
-		</a>
+		<a href={resolve('/auth/sign-in')} class="link">Masuk</a>
 	{/snippet}
 </AuthCard>
