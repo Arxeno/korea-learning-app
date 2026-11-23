@@ -1,12 +1,27 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Button, Helper, Input, Label } from 'flowbite-svelte';
+	import { Button, Checkbox, Helper, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
+	import { clearGuestProgress, readGuestProgress, type GuestProgress } from '$lib/stores.svelte';
 
 	let { data, form } = $props();
 
 	let submitting = $state(false);
+
+	// Progress made in this browser without an account, offered for import into the new account.
+	let guestProgress = $state<GuestProgress | null>(null);
+	let importProgress = $state(true);
+	onMount(() => {
+		guestProgress = readGuestProgress();
+	});
+
+	const guestProgressJson = $derived(
+		guestProgress
+			? JSON.stringify({ results: guestProgress.results, stats: guestProgress.stats })
+			: ''
+	);
 </script>
 
 <svelte:head>
@@ -23,7 +38,11 @@
 		class="flex flex-col gap-4"
 		use:enhance={() => {
 			submitting = true;
-			return async ({ update }) => {
+			return async ({ result, update }) => {
+				// The progress is now in the account; drop the browser copy so it isn't imported twice.
+				if (result.type === 'redirect' && result.location.includes('progress=saved')) {
+					clearGuestProgress();
+				}
 				await update();
 				submitting = false;
 			};
@@ -86,6 +105,22 @@
 				required
 			/>
 		</div>
+
+		{#if guestProgress}
+			<div class="rounded-lg border border-purple-200 bg-purple-50 p-4">
+				<Checkbox name="importProgress" bind:checked={importProgress} color="purple">
+					<span>
+						Simpan progress yang sudah ada
+						<span class="font-semibold">
+							({guestProgress.quizCount} kuis, {guestProgress.wordCount} kata)
+						</span>
+						ke akunmu
+					</span>
+				</Checkbox>
+				<Helper class="mt-1 ps-6">Supaya bisa dilanjutkan di HP atau laptop lain.</Helper>
+				<input type="hidden" name="guestProgress" value={guestProgressJson} />
+			</div>
+		{/if}
 
 		<Button type="submit" color="purple" class="w-full" disabled={submitting}>
 			{submitting ? 'Memproses…' : 'Daftar'}

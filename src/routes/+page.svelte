@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { words, lessonKey, lessonLabel, lessonsIn } from '$lib/vocab';
+	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import { scoreStore } from '$lib/stores.svelte';
 	import { resolve } from '$app/paths';
+	import { markAnnounced, shouldAnnounce } from '$lib/registerPrompt';
+	import RegisterPromptDialog from '$lib/components/RegisterPromptDialog.svelte';
 	import { Card, Badge } from 'flowbite-svelte';
 	import { BookOutline, BrainSolid, AwardSolid, ClipboardCheckSolid } from 'flowbite-svelte-icons';
 
@@ -10,6 +14,15 @@
 		label: lessonLabel(key),
 		count: words.filter((w) => lessonKey(w) === key).length
 	}));
+
+	// One-time announcement for guests that progress can now be saved to an account.
+	let announceOpen = $state(false);
+	onMount(() => {
+		if (!page.data.user && shouldAnnounce()) {
+			announceOpen = true;
+			markAnnounced();
+		}
+	});
 </script>
 
 <svelte:head>
@@ -81,3 +94,5 @@
 		</div>
 	</div>
 </div>
+
+<RegisterPromptDialog bind:open={announceOpen} variant="announce" />

@@ -55,7 +55,7 @@
 			<Button color="purple" href={resolve('/quiz')} class="mt-4">Mulai Kuis</Button>
 		</div>
 	{:else}
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:flex-row">
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:flex-row">
 			{#if points.length >= 2}
 				<Card class="w-full flex-grow p-5">
 					<h2 class="mb-1 text-lg font-bold text-gray-900 dark:text-white">Tren Akurasi</h2>

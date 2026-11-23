@@ -5,7 +5,11 @@
 	import { scoreStore, wordStatsStore } from '$lib/stores.svelte';
 	import { selectQuizWords } from '$lib/scheduler';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
+	import type { ResolvedPathname } from '$app/types';
 	import { Button, Progressbar, Card } from 'flowbite-svelte';
+	import { shouldPromptAfterQuiz } from '$lib/registerPrompt';
+	import RegisterPromptDialog from '$lib/components/RegisterPromptDialog.svelte';
 
 	const TOTAL_QUESTIONS = 20;
 
@@ -20,6 +24,9 @@
 	let options = $state<string[]>([]);
 	let finished = $state(false);
 	let quizWords = $state<Word[]>([]);
+	let registerPromptOpen = $state(false);
+	// resolve() has no query-string support; appending one still yields a resolved app path.
+	const signUpHref = (resolve('/auth/sign-up') + '?redirectTo=%2Fscores') as ResolvedPathname;
 
 	function shuffle<T>(arr: T[]): T[] {
 		const a = [...arr];
@@ -88,6 +95,8 @@
 				wrong: quizWords.length - score
 			};
 			scoreStore.add(result);
+			// Guests: invite them to keep this progress in an account (snoozed for 7 days when dismissed).
+			if (!page.data.user && shouldPromptAfterQuiz()) registerPromptOpen = true;
 		} else {
 			currentIndex++;
 			loadQuestion();
@@ -185,6 +194,21 @@
 				<Button color="purple" size="lg" onclick={startQuiz} class="flex-1">Main Lagi</Button>
 				<Button color="light" size="lg" href={resolve('/scores')} class="flex-1">Lihat Skor</Button>
 			</div>
+
+			{#if !page.data.user}
+				<p class="text-center text-sm text-gray-500">
+					<a href={signUpHref} class="font-medium text-purple-600 hover:underline"> Daftar </a>
+					supaya progress-mu tersimpan di akun.
+				</p>
+			{/if}
 		</div>
 	{/if}
 </div>
+
+<RegisterPromptDialog
+	bind:open={registerPromptOpen}
+	variant="after-quiz"
+	quizCount={scoreStore.totalQuizzes}
+	wordCount={wordStatsStore.practicedCount}
+	redirectTo="/scores"
+/>

@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { Button, Card } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
+	import { clearGuestProgress } from '$lib/stores.svelte';
 
 	let { data } = $props();
 
@@ -34,7 +35,13 @@
 			<Button href={resolve('/auth/forgot-password')} color="light" class="flex-1">
 				Ubah kata sandi
 			</Button>
-			<form method="POST" action={resolve('/auth/sign-out')} class="flex-1">
+			<!-- Signing out also empties this browser's progress, so the next person starts fresh. -->
+			<form
+				method="POST"
+				action={resolve('/auth/sign-out')}
+				class="flex-1"
+				onsubmit={clearGuestProgress}
+			>
 				<Button type="submit" color="red" outline class="w-full">Keluar</Button>
 			</form>
 		</div>

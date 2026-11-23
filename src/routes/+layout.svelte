@@ -3,11 +3,15 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
-	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+	import { Alert, Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+	import { syncStatus } from '$lib/stores.svelte';
 
 	let { children, data } = $props();
 
 	let activeUrl = $derived(page.url.pathname);
+
+	// Set by the sign-up action after moving guest progress into the new account.
+	const progressImport = $derived(page.url.searchParams.get('progress'));
 
 	const baseLinks = [
 		{ href: resolve('/'), label: 'Beranda' },
@@ -55,6 +59,21 @@
 	</Navbar>
 
 	<main class="mx-auto w-full max-w-[1200px] px-4 py-8">
+		{#if progressImport === 'saved'}
+			<Alert color="green" dismissable class="mb-6" role="status">
+				Progress-mu sudah tersimpan di akun. Sekarang bisa dilanjutkan dari perangkat mana pun.
+			</Alert>
+		{:else if progressImport === 'failed'}
+			<Alert color="yellow" dismissable class="mb-6" role="alert">
+				Akunmu sudah dibuat, tapi progress lama gagal dipindahkan. Progress itu masih ada di
+				perangkat ini.
+			</Alert>
+		{/if}
+		{#if syncStatus.failed}
+			<Alert color="red" dismissable class="mb-6" role="alert">
+				Progress gagal disimpan ke akun. Periksa koneksi internetmu.
+			</Alert>
+		{/if}
 		{@render children()}
 	</main>
 

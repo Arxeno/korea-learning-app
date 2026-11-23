@@ -1,12 +1,20 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import AuthCard from '$lib/components/AuthCard.svelte';
+	import { readGuestProgress } from '$lib/stores.svelte';
 
 	let { data, form } = $props();
 
 	let submitting = $state(false);
+
+	// Signing in to an existing account does not import guest progress; say so up front.
+	let hasGuestProgress = $state(false);
+	onMount(() => {
+		hasGuestProgress = readGuestProgress() !== null;
+	});
 </script>
 
 <svelte:head>
@@ -66,6 +74,14 @@
 				required
 			/>
 		</div>
+
+		{#if hasGuestProgress}
+			<p class="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+				Progress tanpa akun di perangkat ini tidak dipindah ke akunmu dan akan terhapus saat kamu
+				keluar. Belum punya akun?
+				<a href={resolve('/auth/sign-up')} class="font-medium underline">Daftar</a> untuk menyimpannya.
+			</p>
+		{/if}
 
 		<Button type="submit" color="purple" class="w-full" disabled={submitting}>
 			{submitting ? 'Memproses…' : 'Masuk'}
