@@ -170,6 +170,10 @@
 		@apply rounded-xl border border-jade-100 bg-jade-50 px-4 py-3 text-sm text-jade-700;
 	}
 
+	.alert-warning {
+		@apply rounded-xl border border-gold-100 bg-gold-50 px-4 py-3 text-sm text-gold-700;
+	}
+
 	.link {
 		@apply font-semibold text-coral-600 underline-offset-2 hover:underline;
 	}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { clearGuestProgress } from '$lib/stores.svelte';
 
 	let { data } = $props();
 
@@ -41,7 +42,13 @@
 
 		<div class="mt-6 flex flex-col gap-3 border-t border-paper-3 pt-6 sm:flex-row">
 			<a href={resolve('/auth/forgot-password')} class="btn btn-ghost flex-1">Ubah kata sandi</a>
-			<form method="POST" action={resolve('/auth/sign-out')} class="flex-1">
+			<!-- Signing out also empties this browser's progress, so the next person starts fresh. -->
+			<form
+				method="POST"
+				action={resolve('/auth/sign-out')}
+				class="flex-1"
+				onsubmit={clearGuestProgress}
+			>
 				<button
 					type="submit"
 					class="btn w-full border border-coral-200 bg-surface text-coral-600 hover:border-coral-500 hover:bg-coral-50"

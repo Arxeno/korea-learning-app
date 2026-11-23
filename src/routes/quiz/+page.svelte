@@ -5,12 +5,15 @@
 	import { scoreStore, wordStatsStore } from '$lib/stores.svelte';
 	import { selectQuizWords } from '$lib/scheduler';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import QuizProgress from '$lib/components/QuizProgress.svelte';
 	import AnswerOption, { answerState } from '$lib/components/AnswerOption.svelte';
 	import ResultSummary from '$lib/components/ResultSummary.svelte';
 	import { revealActions } from '$lib/reveal';
+	import { shouldPromptAfterQuiz } from '$lib/registerPrompt';
+	import RegisterPromptDialog from '$lib/components/RegisterPromptDialog.svelte';
 
 	const TOTAL_QUESTIONS = 20;
 
@@ -26,6 +29,7 @@
 	let finished = $state(false);
 	let quizWords = $state<Word[]>([]);
 	let actions = $state<HTMLElement>();
+	let registerPromptOpen = $state(false);
 
 	function shuffle<T>(arr: T[]): T[] {
 		const a = [...arr];
@@ -95,6 +99,8 @@
 				wrong: quizWords.length - score
 			};
 			scoreStore.add(result);
+			// Guests: invite them to keep this progress in an account (snoozed for 7 days when dismissed).
+			if (!page.data.user && shouldPromptAfterQuiz()) registerPromptOpen = true;
 		} else {
 			currentIndex++;
 			loadQuestion();
@@ -176,5 +182,20 @@
 			onrestart={startQuiz}
 			secondary={{ href: resolve('/scores'), label: 'Lihat Skor' }}
 		/>
+
+		{#if !page.data.user}
+			<p class="text-center text-sm text-ink-muted">
+				<a href={resolve('/auth/sign-up?redirectTo=%2Fscores')} class="link">Daftar</a>
+				supaya progress-mu tersimpan di akun.
+			</p>
+		{/if}
 	{/if}
 </div>
+
+<RegisterPromptDialog
+	bind:open={registerPromptOpen}
+	variant="after-quiz"
+	quizCount={scoreStore.totalQuizzes}
+	wordCount={wordStatsStore.practicedCount}
+	redirectTo="/scores"
+/>

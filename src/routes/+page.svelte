@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { words, lessonKey, lessonLabel, lessonsIn } from '$lib/vocab';
 	import { getLessonExercises } from '$lib/exercises';
+	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import { scoreStore } from '$lib/stores.svelte';
 	import { resolve } from '$app/paths';
+	import { markAnnounced, shouldAnnounce } from '$lib/registerPrompt';
+	import RegisterPromptDialog from '$lib/components/RegisterPromptDialog.svelte';
 	import {
 		ArrowRightOutline,
 		AwardOutline,
@@ -66,6 +70,15 @@
 			tone: tones.gold
 		}
 	]);
+
+	// One-time announcement for guests that progress can now be saved to an account.
+	let announceOpen = $state(false);
+	onMount(() => {
+		if (!page.data.user && shouldAnnounce()) {
+			announceOpen = true;
+			markAnnounced();
+		}
+	});
 </script>
 
 <svelte:head>
@@ -186,3 +199,5 @@
 		</div>
 	</section>
 </div>
+
+<RegisterPromptDialog bind:open={announceOpen} variant="announce" />
