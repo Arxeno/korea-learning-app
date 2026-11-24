@@ -21,7 +21,11 @@ export const user = pgTable('user', {
 	updatedAt: timestamp('updated_at')
 		.defaultNow()
 		.$onUpdate(() => new Date())
-		.notNull()
+		.notNull(),
+	// Not a Better Auth field: set by the session hook in $lib/server/auth on every sign-in
+	// (including the automatic one after sign-up). Kept out of Better Auth's user object, so it is
+	// never sent to the browser.
+	lastLoginAt: timestamp('last_login_at', { withTimezone: true })
 });
 
 export const session = pgTable(

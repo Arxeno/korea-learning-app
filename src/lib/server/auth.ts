@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
+import { eq } from 'drizzle-orm';
 import { building } from '$app/environment';
 import { getRequestEvent } from '$app/server';
 import { env } from '$env/dynamic/private';
@@ -22,6 +23,24 @@ export const auth = betterAuth({
 		revokeSessionsOnPasswordReset: true,
 		sendResetPassword: async ({ user, url }) => {
 			await sendPasswordResetEmail(user.email, user.name, url);
+		}
+	},
+	databaseHooks: {
+		session: {
+			create: {
+				// Every new session is a login (sign-in, or the automatic sign-in after sign-up).
+				after: async (session) => {
+					try {
+						await db
+							.update(schema.user)
+							.set({ lastLoginAt: new Date() })
+							.where(eq(schema.user.id, session.userId));
+					} catch (error) {
+						// Only bookkeeping: a failure here must not block the sign-in.
+						console.error('[auth] could not save the last login time', error);
+					}
+				}
+			}
 		}
 	},
 	// Lets auth.api calls in form actions set session cookies. Must be the last plugin.
