@@ -10,7 +10,7 @@
 	aria-label="Navigasi utama"
 	class="fixed inset-x-0 bottom-0 z-30 border-t border-paper-3 bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
 >
-	<ul class="mx-auto grid max-w-md grid-cols-5">
+	<ul class="mx-auto grid max-w-md grid-cols-6">
 		{#each links as link (link.route)}
 			{@const href = resolve(link.route)}
 			{@const active = isActive(page.url.pathname, href, home)}

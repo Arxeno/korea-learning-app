@@ -34,6 +34,26 @@ export interface WordStats {
 	lastSeen: string | null;
 }
 
+/** One place on the weekly leaderboard, as sent to the browser (no user id or email). */
+export interface LeaderboardEntry {
+	rank: number;
+	name: string;
+	quizzes: number;
+	correct: number;
+	/** Percentage of this week's answers that were correct, 0-100. */
+	accuracy: number;
+	isMe: boolean;
+}
+
+export interface Leaderboard {
+	/** ISO timestamps of the week's first moment and the next week's first moment. */
+	weekStart: string;
+	weekEnd: string;
+	entries: LeaderboardEntry[];
+	/** The signed-in user's entry, or null for guests and users with no quiz this week. */
+	me: LeaderboardEntry | null;
+}
+
 export interface RevealItem {
 	kind: 'reveal';
 	prompt: string;

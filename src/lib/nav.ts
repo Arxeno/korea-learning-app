@@ -3,7 +3,8 @@ import {
 	BookOpenOutline,
 	BrainOutline,
 	ClipboardCheckOutline,
-	HomeOutline
+	HomeOutline,
+	UsersGroupOutline
 } from 'flowbite-svelte-icons';
 
 /** Main sections, shared by the desktop header and the mobile tab bar. */
@@ -12,7 +13,8 @@ export const links = [
 	{ route: '/vocabulary', label: 'Kosa Kata', ko: '단어', icon: BookOpenOutline },
 	{ route: '/quiz', label: 'Kuis', ko: '퀴즈', icon: BrainOutline },
 	{ route: '/practice', label: 'Latihan', ko: '연습', icon: ClipboardCheckOutline },
-	{ route: '/scores', label: 'Skor', ko: '점수', icon: AwardOutline }
+	{ route: '/scores', label: 'Skor', ko: '점수', icon: AwardOutline },
+	{ route: '/leaderboard', label: 'Peringkat', ko: '순위', icon: UsersGroupOutline }
 ] as const;
 
 /** Sub-pages (e.g. /practice/numbers) keep their section highlighted. */

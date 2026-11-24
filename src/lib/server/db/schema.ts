@@ -100,7 +100,11 @@ export const quizResult = pgTable(
 		correct: integer('correct').notNull(),
 		wrong: integer('wrong').notNull()
 	},
-	(table) => [unique('quiz_result_user_taken_at_unique').on(table.userId, table.takenAt)]
+	(table) => [
+		unique('quiz_result_user_taken_at_unique').on(table.userId, table.takenAt),
+		// The weekly leaderboard reads one week of quizzes across all users.
+		index('quiz_result_taken_at_idx').on(table.takenAt)
+	]
 );
 
 export const wordStat = pgTable(

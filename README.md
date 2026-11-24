@@ -42,6 +42,10 @@ Email + password auth (sign in, sign up, reset password by email) uses [Better A
 | `/auth/sign-out`        | `POST` only: sign out                    |
 | `/account`              | Account details (requires sign-in)       |
 
+### Leaderboard
+
+`/leaderboard` ranks signed-in users by the number of quizzes they finished this week (Monday 00:00 to Sunday 23:59 WIB); ties go to more correct answers. The page is public and shows only display names. Guests also see an invitation to create an account.
+
 ### Setup
 
 1. Copy `.env.example` to `.env` and fill it in. Generate `BETTER_AUTH_SECRET` with `openssl rand -base64 32`.

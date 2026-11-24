@@ -20,7 +20,8 @@
 	<div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
 		<a href={home} class="flex items-center gap-3 rounded-xl">
 			<BrandSeal />
-			<span class="flex flex-col leading-none">
+			<!-- Between md and lg the seal alone has to make room for the six nav links. -->
+			<span class="flex flex-col leading-none md:hidden lg:flex">
 				<span class="font-serif text-xl font-bold text-ink">Hangul Learning</span>
 				<span class="mt-1 text-[11px] tracking-[0.25em] text-ink-muted">한글 공부</span>
 			</span>
@@ -36,13 +37,13 @@
 							<a
 								{href}
 								aria-current={active ? 'page' : undefined}
-								class="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition {active
+								class="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium whitespace-nowrap transition lg:px-4 {active
 									? 'bg-ink text-paper shadow-soft'
 									: 'text-ink-soft hover:bg-paper-2 hover:text-ink'}"
 							>
 								<span
 									lang="ko"
-									class="hidden font-serif text-xs lg:inline {active
+									class="hidden font-serif text-xs xl:inline {active
 										? 'text-coral-200'
 										: 'text-coral-600'}">{link.ko}</span
 								>
